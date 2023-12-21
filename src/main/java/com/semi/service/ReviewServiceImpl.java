@@ -132,11 +132,12 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	// ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-
-	@Override
-	public List<ReviewDTO> findTop5ByOrderByRatingDesc() {
-	String non = "non";
-		return ReviewRepo.findTop5ByReviewImageIsNotOrderByRatingDesc(non);
-	}
+	 @Override
+	   public List<ReviewDTO> findTop5ByOrderByRatingDesc() {
+	   String non = "non";
+	      return ReviewRepo.findTop5ByReviewImageIsNotOrderByReviewDateDescRatingDesc(non);
+	   }
+
 
 	@Override
 	public Page<ReviewDTO> ReviewSearchList1(String searchKeyword, Pageable pageable) {
