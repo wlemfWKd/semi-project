@@ -1,0 +1,226 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>게시글 리스트 페이지</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<style>
+		.container {
+			padding: 65px 67px;
+		}
+
+		.title {
+			text-align: center;
+			color: #d55e2d;
+			margin-bottom: 20px;
+		}
+
+		.qa {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			width: 70%;
+			margin: 30px auto 60px;
+			text-align: center;
+		}
+
+		table {
+			margin: auto;
+			width: 70%;
+			border-collapse: collapse;
+			border: 1px solid #d55e2d;
+			margin-top: 20px;
+			background-color: #fff;
+			margin-bottom: 30px;
+		}
+
+		th,
+		td {
+			border: 1px solid #d55e2d;
+			padding: 10px;
+			text-align: center;
+			font-size: 14px;
+		}
+
+		th {
+			background-color: #d55e2d;
+			color: #fff;
+		}
+
+		select {
+			height: 33px;
+			border: 1px solid #d55e2d;
+		}
+
+		input[type="text"] {
+			padding: 8px;
+			box-sizing: border-box;
+			margin-bottom: 10px;
+			border: 1px solid #d55e2d;
+		}
+
+		button {
+			background-color: #d55e2d;
+			color: #fff;
+			padding: 8px 12px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		button:hover {
+			background-color: #b84827;
+		}
+
+		a {
+			color: #d55e2d;
+			text-decoration: none;
+		}
+
+		a:hover {
+			color: #b84827;
+		}
+
+		a.new-post-link {
+			display: block;
+			margin-top: 20px;
+			text-align: center;
+			background-color: #d55e2d;
+			color: #fff;
+			padding: 10px 20px;
+			text-decoration: none;
+			border-radius: 4px;
+		}
+
+		a.new-post-link:hover {
+			background-color: #b84827;
+		}
+
+		.link {
+			display: inline-block;
+			padding: 10px 20px;
+			background-color: #d55e2d;
+			color: #fff;
+			text-decoration: none;
+			border-radius: 4px;
+			margin-bottom: 20px;
+		}
+
+		.pagination {
+			text-align: center;
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+
+		.pagination a,
+		.pagination strong {
+			display: inline-block;
+			padding: 8px 12px;
+			margin: 0 4px;
+			border: 1px solid #ddd;
+			text-decoration: none;
+			color: #333;
+			border-radius: 4px;
+		}
+
+		.pagination strong {
+			background-color: #d55e2d;
+			color: #fff;
+		}
+
+		.qa-link {
+			display: inline-block;
+			padding: 10px 20px;
+			background-color: #d55e2d;
+			color: #fff;
+			text-decoration: none;
+			border-radius: 4px;
+			margin-bottom: 20px;
+		}
+
+		.qa-link:hover {
+			background-color: #b84827;
+			color: #fff;
+		}
+	</style>
+</head>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<div class="qa">
+			<h1 class="title">Q&A 게시판</h1>
+			<table th:align="center" border="2" th:cellpadding="0" th:cellspacing="0" th:width="700">
+				<thead>
+				<tbody>
+					<tr>
+						<th width="50">글 번호</th>
+						<th width="200">제목</th>
+						<th width="100">작성자</th>
+						<th width="150">작성일</th>
+						<th width="50">조회수</th>
+					</tr>
+				</tbody>
+				<tbody>
+					<tr th:each="board, state : ${list}">
+						<td th:text="${state.count+ list.getPageable().getPageNumber()*10}"></td>
+						<td><a th:href="@{/qaBoardView(seq=${board.seq})}" th:text="${board.title}"></a></td>
+						<td th:text="${board.writer}"></td>
+						<td th:text="${#dates.format(board.createDate, 'yyyy-MM-dd')}">
+						<td th:text="${board.cnt}"></td>
+					</tr>
+				</tbody>
+				</thead>
+			</table>
+		</div>
+
+		<div th:if="${!list.empty}">
+			<div class="pagination">
+				<th:block th:if="${startPage > 1}">
+					<a
+						th:href="@{/qaBoardList(page=${startPage-2}, searchKeyword=${param.searchKeyword}, select=${param.select})}">&lt;
+						이전</a>
+				</th:block>
+
+				<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+					<a th:if="${page != nowPage}"
+						th:href="@{/qaBoardList(page=${page-1}, searchKeyword=${param.searchKeyword}, select=${param.select})}"
+						th:text="${page}"></a>
+					<strong th:if="${page == nowPage}" th:text="${page}"></strong>
+				</th:block>
+
+				<th:block th:if="${endPage < list.totalPages}">
+					<a th:if="${list.totalPages - endPage > 0}"
+						th:href="@{/qaBoardList(page=${endPage}, searchKeyword=${param.searchKeyword}, select=${param.select})}">다음
+						&gt;</a>
+				</th:block>
+			</div>
+		</div>
+
+		<form th:action="@{/qaBoardList}" method="get" th:align="center">
+			<select name="select">
+				<option value="title">제목</option>
+				<option value="content">글내용</option>
+				<option value="writer">작성자</option>
+				</option>
+			</select>
+			<input type="text" name="searchKeyword">
+			<button type="submit">검색</button>
+		</form>
+		<!-- 회원만 작성 가능해야 함 -->
+		<div th:align="center">
+			<a th:if="${session['user'] != null}" href="/qaBoardWrite" class="qa-link">질문 등록</a>
+			<a href="/qaBoardList" class="qa-link" style="margin-left: 10px;">전체보기</a>
+		</div>
+
+		<footer th:replace="footer::footer"></footer>
+	</div>
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

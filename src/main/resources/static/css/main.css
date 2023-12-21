@@ -1,0 +1,778 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Nanum+Gothic:wght@400;700;800&family=Noto+Sans+KR:wght@100;300;400;500;700&family=Open+Sans:wght@300;400;500;600;700;800&family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box !important;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+}
+
+html {
+	font-size: 10px;
+}
+
+h1,
+h2,
+h3 {
+	margin: 0;
+}
+
+form,
+table,
+ul,
+p {
+	font-size: 1.4rem;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	color: #000;
+	text-decoration: none;
+}
+
+input {
+	vertical-align: middle;
+}
+
+input,
+textarea {
+	outline: none;
+}
+
+table,
+tr,
+th,
+td {
+	border: 1px solid #000;
+	border-collapse: collapse;
+}
+
+p {
+	line-height: 1.5;
+}
+
+img {
+	display: block;
+	width: 100%;
+}
+
+/* Help Class Settings */
+/* IR(Image Replace) */
+.ir {
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-indent: -9999px;
+	overflow: hidden;
+	background: no-repeat 0 0;
+}
+
+/* ***************** 레이아웃 구성 시작 *****************  */
+#intro {
+	height: 100vh;
+}
+
+.container,
+.container-lg,
+.container-fluid {
+	height: 100%;
+	padding: 0;
+}
+
+.container {
+	padding: 105px 0;
+}
+
+/* ***************** 공통영역 선언 시작 *****************  */
+body {
+	position: relative;
+}
+
+.title {
+	height: 84px;
+	margin-bottom: 63px;
+	text-align: center;
+}
+
+.title h2 {
+	height: 42px;
+	margin-bottom: 21px;
+	font: bold 3.6rem/42px "Nanum Gothic", sans-serif;
+}
+
+.title a {
+	display: inline-block;
+	height: 21px;
+	font: bold 1.4rem/21px "Nanum Gothic", sans-serif;
+}
+
+.title a:hover {
+	color: #d55e2d
+}
+
+.btn {
+	display: inline-block;
+	width: 160px;
+	height: 42px;
+	border-radius: 21px;
+	background-color: #fff;
+	font: 500 1.4rem/35px "Roboto", sans-serif;
+}
+
+.btn:hover {
+	background-color: #d55e2d;
+	color: #fff;
+}
+
+/* ***************** 개별영역 선언 시작 *****************  */
+/* ************** Header Area Start **************  */
+#header {
+	padding: 0;
+	height: 65px;
+	background-color: rgba(255, 255, 255, 0);
+	-webkit-transition: all ease 0.6s;
+	-moz-transition: all ease 0.6s;
+	-o-transition: all ease 0.6s;
+	transition: all ease 0.6s;
+}
+
+#header h1 {
+	width: 120px;
+	height: 50px;
+}
+
+#header h1 #headerh1 {
+	display: block;
+	width: 100%;
+	height: 100%;
+	color: #fff;
+	font: bold 2.5rem/50px "Roboto", sans-serif;
+}
+
+#header #gnb {
+	justify-content: space-between;
+}
+
+#header #gnb li a.active {
+	color: #fff !important;
+}
+
+#header #gnb a {
+	padding: 0 15px;
+	color: #fff;
+	font: bold 1.6rem/50px "Nanum Gothic", sans-serif;
+}
+
+#header.fixed {
+	background-color: #fff !important;
+	border-bottom: 1px solid #ccc;
+}
+
+#header.fixed h1 a {
+	color: #d55e2d !important;
+}
+
+#header.fixed #gnb a {
+	color: #2d2d2d;
+}
+
+#header.fixed #gnb a:hover {
+	color: #d55e2d !important;
+	background-color: transparent !important;
+}
+
+#header.fixed #gnb a.active {
+	color: #d55e2d !important;
+}
+
+.navbar-nav {
+	margin-left: 30%;
+}
+
+.nav-item-margin {
+	margin-right: 100px;
+}
+
+.navbar-nav .nav-link.active,
+.navbar-nav .show>.nav-link {
+	color: #d55e2d !important;
+}
+
+
+/************* 서브메뉴 ******************/
+#header #gnb ul .a {
+	height: auto;
+	background-color: #d55e2d;
+	padding: 20px;
+	position: absolute;
+	right: 55%;
+	border-radius: 5px;
+	display: none;
+}
+
+
+
+#header #gnb li li {
+	height: 35px;
+}
+
+#header #gnb li li a,
+#header #gnb ul .sub {
+	display: block;
+	width: 100%;
+	height: 100%;
+	font: 14px/35px "Nanum Gothic", sans-serif;
+	color: #fff;
+}
+
+#header #gnb li li a:hover,
+#header #gnb ul .sub:hover {
+	background-color: #fc0 !important;
+	color: #fff !important;
+}
+
+#header #gnb ul .b {
+	height: auto;
+	background-color: #d55e2d;
+	padding: 15px;
+	position: absolute;
+	right: 38%;
+	border-radius: 5px;
+	display: none;
+}
+
+#header #gnb ul .c {
+	height: 130px;
+	background-color: #d55e2d;
+	padding: 15px;
+	position: absolute;
+	right: 20%;
+	border-radius: 5px;
+	display: none;
+}
+
+/* ************** Intro Area Start **************  */
+#intro .container-fluid,
+.carousel,
+.carousel-inner,
+.carousel-item,
+img {
+	height: 100%;
+}
+
+/* ************** best Area Start **************  */
+#best {
+	background-color: #fff;
+	text-align: center;
+}
+
+/********************************************************/
+/* ****** contents ***** */
+
+#contents .product-select .title a:hover {
+	color: #d55e2d
+}
+
+#contents .product-select .title a i {
+	margin-left: 5px;
+}
+
+/* content */
+#contents .product-select .content {
+	height: 483px;
+	display: flex;
+	justify-content: space-between;
+}
+
+#contents .product-select .content>div {
+	width: 270px;
+	text-align: center;
+	background-color: #f2f2f2;
+}
+
+#contents .product-select .content .img-box {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#contents .product-select .content h3 {
+	height: 50px;
+	margin-top: 30px;
+	font: bold 1.5rem/21px "Nanum Gothic", sans-serif;
+}
+
+#contents .product-select .content p {
+	font-size: 1.3rem;
+	color: #555;
+	margin-bottom: 30px;
+}
+
+/********************************************************/
+
+
+/* ************** test Area Start **************  */
+#test .container {
+	background-color: #f2f2f2;
+}
+
+#test .container>div {
+	display: flex;
+	height: 525px;
+}
+
+#test .container>div img {
+	flex: 1;
+}
+
+#test .container>div .text-box {
+	flex: 1;
+	padding: 147px 100px 0 85px;
+}
+
+#test .text-box h3 {
+	height: 42px;
+	margin-bottom: 42px;
+	font: bold 5rem/42px "Nanum Gothic", sans-serif;
+}
+
+#test .text-box h3+p {
+	height: 21px;
+	margin-bottom: 21px;
+	font: bold 1.6rem/21px "Nanum Gothic", sans-serif;
+}
+
+#test .text-box h3+p+p {
+	height: 42px;
+	margin-bottom: 42px;
+	font-size: 1.4rem;
+}
+
+
+/* ************** Review Area Start **************  */
+.main_reivew {
+	margin: auto;
+}
+
+.main_reivew .reivew_list ul {
+	margin: auto;
+	padding: 0;
+	text-align: center;
+}
+
+.review_item {
+	width: 220px;
+	margin: 10px 10px;
+	height: auto;
+	border: solid 1px #efefef;
+	display: inline-block;
+}
+
+.review_item .img_area img {
+	height: auto;
+	width: 100%;
+	margin: 0;
+	display: inline-block;
+}
+
+.review_middle {
+	text-align: left;
+	height: auto;
+	margin-left: 5px;
+}
+
+.review_middle .score {
+	color: #d55e2d;
+}
+
+.review_middle .text {
+	height: auto;
+	padding: 5px 0 0 0;
+	font-size: 0.7rem;
+	border-top: 0;
+	width: 92%;
+	font-size: 15px;
+	position: relative;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.review_middle .name {
+	width: 50%;
+	margin: 0;
+	height: auto;
+	text-align: left;
+	font-size: 11px;
+	color: #b2b2b2;
+	font-weight: 300;
+}
+
+.detail {
+	position: relative;
+}
+
+.detail .detail-score {
+	width: 100%;
+	border-top: 1px solid #efefef;
+}
+
+.detail .detail-score .detail-img {
+	width: 55px;
+	height: 55px;
+	display: inline-block;
+	top: 3.5px;
+	left: 5px;
+	position: absolute;
+}
+
+.detail .detail-score .detail-info {
+	display: inline-block;
+	margin-left: 75px;
+	width: 120px;
+	height: auto;
+	line-height: 1.5rem;
+	vertical-align: middle;
+	padding: 10px 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.detail .detail-score .detail-info .rating-count {
+	margin: 0;
+	height: 25px;
+	width: 100%;
+	display: table;
+	font-size: 10px;
+}
+
+.detail .detail-score .detail-info .rating-count .rating,
+.detail .detail-score .detail-info .rating-count .count {
+	text-align: left;
+	font-weight: bold;
+	height: 100%;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.rating-count-color {
+	color: #d55e2d;
+}
+
+#modalRating {
+	color: red;
+}
+
+span#star {
+	color: red;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgb(0, 0, 0);
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 999;
+}
+
+
+
+/* 기존 스타일과 합쳐진 변경된 스타일 */
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 30px;
+	border: 1px solid #888;
+	width: 1000px;
+	height: 700px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	border-radius: 5px;
+}
+
+.close {
+	color: #aaa;
+	font-size: 28px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+	color: black;
+	text-decoration: none;
+}
+
+.modal-info {
+	display: flex;
+	align-items: center;
+}
+
+#modalImage {
+	width: 50%;
+	height: auto;
+	max-width: 100%;
+	float: left;
+	margin-right: 20px;
+}
+
+.modal-text {
+	width: 40%;
+	box-sizing: border-box;
+}
+
+/* ************** Contact Area Start **************  */
+#contact .title {
+	text-align: center;
+	margin-bottom: 63px;
+}
+
+#contact .title h2 {
+	margin-bottom: 42px;
+}
+
+#contact .content {
+	text-align: center;
+}
+
+#contact .content .icon {
+	height: 42px;
+	line-height: 42px;
+	font-size: 3.6rem;
+	margin-bottom: 21px;
+}
+
+/* ************** Footer Area Start **************  */
+
+#footer .f_wrap {
+	border-top: 2px solid #d55e2d;
+	padding: 40px 0 24px 0;
+}
+
+#footer .tail_con {
+	width: 1200px;
+	margin: 0 auto;
+	padding: 0;
+	position: relative;
+}
+
+#footer .copyright {
+	text-decoration: none;
+	padding: 0 0 0 410px;
+	font-size: 14px;
+	line-height: 1.6;
+}
+
+#footer .copyright .f_info {
+	float: left;
+	width: 410px;
+	margin-left: -410px;
+}
+
+#footer .copyright .f_info .tel {
+	font-size: 40px;
+	font-weight: 600;
+	color: #d55e2d;
+	line-height: 1.0;
+	margin-bottom: 10px;
+}
+
+#footer .copyright .f_info .time {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#footer .copyright .f_info .qna {
+	margin: 30px 0 0 0;
+	position: relative;
+}
+
+#footer .copyright .f_title {
+	font-size: 14px;
+	font-weight: 500;
+	margin-bottom: 30px;
+}
+
+/* f-menu */
+#footer .f-menu {
+	width: 1200px;
+	height: 21px;
+	margin: 0 auto;
+	padding: 0;
+	position: relative;
+	border-top: 1px solid #f5f5f5;
+}
+
+#footer .f-menu ul {
+	margin: 0;
+	padding: 22px 0;
+}
+
+#footer .f-menu li {
+	display: inline-block;
+	position: relative;
+	/*padding: 0 20px;*/
+}
+
+#footer .f-menu li a {
+	display: block;
+	height: 100%;
+	padding: 0 20px;
+	font: bold 1.4rem/21px "맑은 고딕", sans-serif;
+	color: #000;
+	position: relative;
+	text-decoration: none;
+}
+
+#footer .f-menu li:first-child,
+#footer .f-menu li:first-child a {
+	padding-left: 0;
+}
+
+#footer .f-menu li a::after {
+	content: '';
+	display: block;
+	width: 1px;
+	height: 14px;
+	background-color: #000;
+	position: absolute;
+	right: -1px;
+	top: 5px;
+}
+
+#footer .f-menu li:last-child a::after {
+	display: none;
+}
+
+#footer .f-menu li a:hover {
+	color: #d55e2d;
+}
+
+#footer .sns {
+	padding: 0 0 0;
+	position: absolute;
+	top: 15px;
+	right: 120px;
+}
+
+#footer .sns img {
+	display: inline-block;
+	vertical-align: top;
+	margin: 0 0 0 6px;
+	width: 27px;
+}
+
+.kakaomap {
+	display: flex;
+	align-items: center;
+}
+
+.map {
+	margin-left: 65%;
+	margin-top: -30%;
+	width: 200px;
+	height: 200px;
+	z-index: 1;
+}
+
+/* ***************** 미디어쿼리 선언 시작 *****************  */
+@media screen and (max-width: 1199px) {
+	#header #gnb a {
+		font-size: 1.3rem;
+	}
+
+	#intro .container .intro-content h2 {
+		font-size: 5.2rem;
+	}
+
+	#heaer #gnb a {
+		padding: 0 10px !important;
+	}
+}
+
+@media screen and (max-width: 991px) {
+	#header {
+		height: auto;
+		background-color: #fff;
+	}
+
+	#header .nav-header {
+		width: 100%;
+		height: 50px;
+		position: relative;
+		padding: 0 15px;
+	}
+
+	#header .nav-header h1 a {
+		color: #f05f40;
+	}
+
+	#header .nav-header #mobile_btn {
+		border: 1px solid #888;
+		position: absolute;
+		right: 15px;
+		top: 50%;
+		-webkit-transform: translateY(-50%);
+		-moz-transform: translateY(-50%);
+		-o-transform: translateY(-50%);
+		transform: translateY(-50%);
+	}
+
+	#header .nav-header #mobile_btn:hover {
+		background-color: #f2f2f2;
+	}
+
+	#header .nav-header #mobile_btn:focus {
+		box-shadow: none;
+	}
+
+	#header #gnb ul {
+		padding: 25px 0;
+	}
+
+	#header #gnb ul a {
+		color: #2d2d2d;
+	}
+
+	#header.fixed {
+		height: auto !important;
+	}
+
+	#intro .container .intro-content h2 {
+		font-size: 4.2rem;
+		line-height: 50px;
+	}
+
+	#intro .container .intro-content h2 br {
+		display: none;
+	}
+
+	#intro .container .intro-content p {
+		width: 80%;
+		margin: 0 auto 63px;
+	}
+
+	#about p {
+		width: 100%;
+	}
+
+}

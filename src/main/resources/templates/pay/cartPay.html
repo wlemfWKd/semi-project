@@ -1,0 +1,133 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>pay</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<style>
+		h1 {
+			text-align: center;
+			color: #d55e2d;
+		}
+
+		.container {
+			padding: 65px 67px;
+		}
+
+		form {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			width: 90%;
+			margin: 30px auto;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin: 30px 0;
+		}
+
+		td {
+			padding: 10px;
+			text-align: center;
+			border: 1px solid #b84827;
+		}
+
+		p {
+			text-align: center;
+			color: #d55e2d;
+			font-size: 18px;
+			margin-top: 20px;
+		}
+
+		button {
+			background-color: #d55e2d;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			margin: 10px;
+		}
+
+		button:hover {
+			background-color: #b84827;
+		}
+
+		.pay {
+			margin-bottom: 30px;
+		}
+
+		.price {
+			font-weight: bold;
+			font-size: 25px;
+		}
+
+		.name {
+			background-color: #d55e2d;
+			color: #fff;
+		}
+	</style>
+</head>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<form action="/completeCart" id="complete" name="complete">
+			<h1>주문/결제</h1>
+			<table border="1">
+				<tr>
+					<td class="name" th:text="받는분"></td>
+					<td id="name1" name="name1" th:text="${name}"></td>
+					<td class="name" th:text="주소"></td>
+					<td id="addr1" name="addr1" th:text="${addr}"></td>
+					<td class="name" th:text="휴대폰번호"></td>
+					<td id="phone1" name="phone1" th:text="${phone}"></td>
+					<input type="hidden" id="id" name="id" th:value="${member.id}" />
+				</tr>
+				<th:block th:each="product : ${productList}">
+					<tr>
+						<td name="productCode" th:text="${product.bpCode}" th:value="${product.bpCode}"
+							style="display: none;">
+						<td class="name" th:text="상품명"></td>
+						<td name="productName" th:text="${product.bpName}" th:value="${product.bpName}">
+						<td class="name" th:text="수량"></td>
+						<td name="productCount" th:text="${product.bpCount}" th:value="${product.bpCount}">
+						<td class="name" th:text="가격"></td>
+						<td name="productPrice" th:text="${#numbers.formatInteger(product.bpPrice, 3, 'COMMA') + '원'}"
+							th:value="${product.bpPrice}"></td>
+					</tr>
+				</th:block>
+				<input type="hidden" id="name" name="name" />
+				<input type="hidden" id="phone" name="phone" />
+				<input type="hidden" id="addr" name="addr" />
+
+				<input type="hidden" id="productCode" name="productCode" />
+				<input type="hidden" id="productName" name="productName" />
+				<input type="hidden" id="productCount" name="productCount" />
+				<input type="hidden" id="productPrice" name="productPrice" />
+			</table>
+			<p class="price">총 가격 : <span id="totalPrice"
+					th:text="${#numbers.formatInteger(totalPrice, 3, 'COMMA')}"></span><span>원</span></p>
+		</form>
+		<p>결제수단</p>
+		<div th:align="center" class="pay">
+			<button id="kakaopayButton" onclick="kakaoPay()">카카오페이</button>
+			<button id="paycoButton" onclick="paycoPay()">페이코</button>
+			<button id="danalButton" onclick="danalPay()">다날페이</button>
+		</div>
+
+		<footer th:replace="footer::footer"></footer>
+	</div>
+	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+	<script src="/js/cartpayment.js"></script>
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

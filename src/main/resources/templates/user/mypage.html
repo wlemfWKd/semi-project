@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<style>
+		h1 {
+			text-align: center;
+			color: #d55e2d;
+		}
+
+		.container {
+			padding: 67px 65px;
+		}
+
+		form {
+			background-color: #fff;
+			padding: 30px 20px 30px 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			width: 70%;
+			margin: 30px auto 60px;
+			text-align: center;
+		}
+
+		table {
+			margin: auto;
+		}
+
+		td {
+			padding: 10px;
+			text-align: justify;
+			font-size: 20px;
+		}
+
+		input[type="text"],
+		input[type="password"] {
+			width: 100%;
+			padding: 8px;
+			box-sizing: border-box;
+			margin-bottom: 10px;
+			border: 1px solid #d55e2d;
+		}
+
+		#phone1,
+		#phone2,
+		#phone3 {
+			width: 110px !important;
+		}
+
+		#email1 {
+			width: 250px !important;
+		}
+
+		select {
+			height: 34px;
+			border-color: #d55e2d;
+		}
+
+		input[type="submit"] {
+			background-color: #d55e2d;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #b84827;
+		}
+
+		input[type="button"] {
+			background-color: #d55e2d;
+			color: #fff;
+			padding: 9px 10px;
+			border-radius: 4px;
+			cursor: pointer;
+			border: none;
+			margin-left: 20px;
+		}
+
+		#addr1 {
+			width: 150px;
+		}
+	</style>
+
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.js"
+		integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+	<script src="/js/user/mypage.js"></script>
+</head>
+
+<body>
+	<header th:replace="header::header"></header>
+	<form action="/updateInfo" method="post" id="register">
+		<h1>마 이 페 이 지</h1>
+		<br />
+		<table>
+			<tr>
+				<td>아이디:</td>
+				<td><input type="text" id="id" name="id" th:value="${user.id}" size="20" readonly /></td>
+			</tr>
+			<tr>
+				<td>이름:</td>
+				<td><input type="text" id="name" name="name" th:value="${user.name}" size="20" readonly /></td>
+			</tr>
+			<tr>
+				<td th:text="비밀번호"></td>
+				<td><input type="password" id="password" name="password" /></td>
+			</tr>
+			<tr>
+				<td>비밀번호 확인</td>
+				<td><input type="password" name="passwordc" size="30" /></td>
+			</tr>
+			<tr>
+				<td th:text="이메일"></td>
+				<td><input type="text" id="email1" name="email1" th:value="${#strings.isEmpty(email)? '': email}"
+						size="20" />@
+					<select id="email2" name="email2" onchange="checkCustomEmail()">
+						<option value="">선택하세요</option>
+						<option value="@naver.com">네이버</option>
+						<option value="@gmail.com">G메일</option>
+						<option value="@daum.net">다음</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td th:text="휴대폰번호"></td>
+				<td>
+					<input type="text" id="phone1" th:value="${#strings.isEmpty(num1)? '': num1}" size="3"
+						maxlength="3" />-
+					<input type="text" id="phone2" th:value="${#strings.isEmpty(num2)? '': num2}" size="4"
+						maxlength="4" />-
+					<input type="text" id="phone3" th:value="${#strings.isEmpty(num3)? '': num3}" size="4"
+						maxlength="4" />
+				</td>
+			</tr>
+			<tr>
+				<td th:text="주소"></td>
+				<td>
+					<input type="text" id="addr1" name="addr1" th:value="${#strings.isEmpty(addr1)? '': addr1}"
+						readonly />
+					<input type="button" class="btn btn-info" value="우편번호 찾기" onclick="doumPost()" /><br />
+				</td>
+			</tr>
+			<tr>
+				<td>
+				</td>
+				<td>
+					<input type="text" id="addr2" name="addr2" th:value="${#strings.isEmpty(addr2)? '': addr2}"
+						placeholder="주소" readonly />
+					<input type="text" id="addr3" name="addr3" th:value="${#strings.isEmpty(addr3)? '': addr3}"
+						placeholder="상세주소" /> <br /> <br />
+				</td>
+			</tr>
+			<input type="hidden" value="" id="addr" name="addr">
+			<input type="hidden" value="" id="phone" name="phone">
+			<input type="hidden" value="" id="email" name="email">
+		</table>
+		<input type="button" onclick="push()" value="수정 완료" />
+		<input type="button" onclick="out()" th:value="회원탈퇴" />
+	</form>
+	<footer th:replace="footer::footer"></footer>
+
+	<!-- jQuery Insert -->
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

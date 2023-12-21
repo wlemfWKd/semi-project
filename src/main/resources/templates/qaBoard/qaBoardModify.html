@@ -1,0 +1,119 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>getBoard.html</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<style>
+		h1 {
+			text-align: center;
+			color: #d55e2d;
+		}
+
+		.container {
+			padding: 65px 67px;
+		}
+
+		form {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			margin-top: 20px;
+			margin-bottom: 30px;
+		}
+
+		table {
+			margin: auto;
+			border-collapse: collapse;
+			margin-top: 20px;
+		}
+
+		th,
+		td {
+			padding: 10px;
+			text-align: center;
+			border: 1px solid #ddd;
+		}
+
+		th {
+			background-color: #d55e2d;
+			color: #fff;
+		}
+
+		textarea {
+			width: calc(100% - 20px);
+			padding: 8px;
+			box-sizing: border-box;
+			margin-bottom: 10px;
+			border: 1px solid #d55e2d;
+		}
+
+		input[type="submit"] {
+			background-color: #d55e2d;
+			color: #fff;
+			padding: 8px 12px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			margin-top: 30px;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #b84827;
+		}
+
+		a.qamodify {
+			display: inline-block;
+			padding: 8px 12px;
+			font-size: 14px;
+			background-color: #d55e2d;
+			color: #fff;
+			text-decoration: none;
+			border-radius: 4px;
+		}
+
+		a.qamodify:hover {
+			background-color: #b84827;
+		}
+	</style>
+</head>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<form th:action="@{/updateQaBoard}" method="post">
+			<h1>글수정</h1>
+			<input type="hidden" name="seq" th:value="${board.seq}" />
+			<input type="hidden" name="title" th:value="${board.title}" />
+			<table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">
+				<tr>
+					<td rowspan="2" th:text="${board.title }"></td>
+					<td th:text="${board.cnt }"></td>
+				</tr>
+				<tr>
+					<td th:text="${#dates.format(board.createDate, 'yyyy-MM-dd')}">
+				</tr>
+				<tr>
+					<td>
+						<textarea name="content" rows="10" cols="80" th:text="${board.content }"></textarea>
+					</td>
+					<td th:text="${board.writer }"></td>
+				</tr>
+			</table>
+			<div th:align="center">
+				<input type="submit" value="수정" />
+				<a class="qamodify" th:href="@{/deleteQaBoard(seq=${board.seq})}">삭제</a>
+				<a class="qamodify" th:href="@{/qaBoardList}">목록</a>
+			</div>
+		</form>
+		<footer th:replace="footer::footer"></footer>
+	</div>
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

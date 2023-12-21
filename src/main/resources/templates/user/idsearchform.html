@@ -1,0 +1,112 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>아이디 찾기</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="/js/user/idsearchform.js"></script>
+</head>
+<style>
+	h1 {
+		text-align: center;
+		color: #d55e2d;
+	}
+
+	.container {
+		padding: 67px 65px;
+	}
+
+	form {
+		background-color: #fff;
+		padding: 20px;
+		border-radius: 8px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		margin: auto;
+	}
+
+	table {
+		margin: auto;
+	}
+
+	td {
+		padding: 10px;
+	}
+
+	input[type="text"],
+	input[type="email"] {
+		padding: 8px;
+		box-sizing: border-box;
+		margin-bottom: 10px;
+		border: 1px solid #d55e2d;
+	}
+
+	button {
+		background-color: #d55e2d;
+		color: #fff;
+		padding: 10px 20px;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+	button:hover {
+		background-color: #b84827;
+	}
+
+	#usernameResult {
+		margin-top: 20px;
+		margin-bottom: 30px;
+	}
+
+	a.click {
+		display: block;
+		margin-top: 20px;
+		color: #d55e2d;
+		margin-bottom: 30px;
+	}
+
+	a.click:hover {
+		color: #b84827;
+	}
+</style>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+
+		<form id="findUsernameForm" th:align="center">
+			<h1>아이디 찾기</h1>
+			<table>
+				<tr>
+					<td><label for="email">이름:</label></td>
+					<td><input type="text" id="name" name="name" required></td>
+				</tr>
+				<tr>
+					<td><label for="email">이메일:</label></td>
+					<td><input type="email" id="email" name="email" required></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><button type="button" onclick="findUsername()">아이디 찾기</button></td>
+				</tr>
+			</table>
+		</form>
+
+		<div id="usernameResult" th:align="center"></div>
+		<div th:align="center">
+			<a class="click" href="/login">로그인</a> <a class="click" href="/pwsearch">비밀번호 찾기</a>
+		</div>
+		<footer th:replace="footer::footer"></footer>
+	</div>
+
+	<!-- jQuery Insert -->
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

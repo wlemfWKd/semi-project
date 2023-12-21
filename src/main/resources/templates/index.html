@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>B1L3</title>
+
+	<!-- Bootstrap CSS : 개발완료 후 CDN 변경 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+
+	<!-- My CSS -->
+	<link rel="stylesheet" href="../css/main.css">
+	<link rel="stylesheet" href="../css/footer.css">
+
+</head>
+
+<body>
+
+	<!-- Header Area Start -->
+	<div class="navbar navbar-expand-lg navbar-light fixed-top" id="header" th:fragment="headerFragment">
+		<div class="container-lg">
+
+			<div class="nav-header">
+				<!-- Logo -->
+				<h1><a id="headerh1" href="/">B1L3</a></h1>
+
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#gnb"
+					aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+					id="mobile_btn">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+
+			<!-- Gnb -->
+			<div class="collapse navbar-collapse" id="gnb">
+
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" aria-current="page" href="/productList">전제품</a>
+						<ul class="a">
+							<li><a class="sub" href="/productFemale">여성</a></li>
+							<li><a class="sub" href="/productMale">남성</a></li>
+							<li><a class="sub" href="/productCommon">공용</a></li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/facecheck">TEST</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/getReviewList">REVIEW</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">COMMUNITY</a>
+						<ul class="b">
+							<li><a class="sub" href="/qaBoardList">Q&A</a></li>
+							<li><a class="sub" href="/usBoardList">자주하는질문</a></li>
+							<li><a class="sub" href="/chMain">취소/반품</a></li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/introduce">소개</a>
+					</li>
+					<li class="nav-item nav-item-margin"></li>
+					<li class="nav-item" th:if="${session.user != null && #strings.equals(session.user.id, 'manager')}">
+						<a class="nav-link dropdown-toggle" href="#">관리</a>
+						<ul class="c">
+							<li><a class="sub" th:if="${session.user != null && #strings.equals(session.user.id,'manager')}"
+									href="/productManagerList">제품관리</a></li>
+							<li><a class="sub" th:if="${session.user != null && #strings.equals(session.user.id,'manager')}"
+									href="/userlist">회원관리</a></li>
+							<li><a class="sub" th:if="${session.user != null && #strings.equals(session.user.id,'manager')}"
+									href="/chBoardList">취소/반품</a></li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a th:if="${session.user.id != null && session['user'].id != 'manager'}"
+							href="/getBuyList">구매내역</a>
+					</li>
+					<li class="nav-item">
+						<a th:if="${session.user.id == null}" href="/login">로그인</a>
+					</li>
+					<li class="nav-item">
+						<a th:if="${session.user.id != null}" href="/logout">로그아웃</a>
+					</li>
+					<li class="nav-item">
+						<a th:if="${session.user.id == null}" href="/joinform">회원가입 </a>
+					</li>
+					<li>
+						<a th:if="${session.user.id != null && session['user'].id != 'manager'}" href="/mypage"><i class='fa fa-user-o'
+								aria-hidden='true'></i></a>
+					</li>
+					<li>
+						<a th:if="${session.user.id != null && session['user'].id != 'manager'}" href="/cartList"><i class='fa fa-shopping-cart' aria-hidden='true'></i></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div><!-- Header Area End -->
+
+
+
+	<!-- Intro Area Start -->
+	<div id="intro">
+
+		<div class="container-fluid">
+			<div id="slider" class="carousel slide" data-bs-ride="carousel">
+				<!-- Pager -->
+				<ol class="carousel-indicators">
+					<li data-bs-target="#slider" data-bs-slide-to="0" class="active"></li>
+					<li data-bs-target="#slider" data-bs-slide-to="1"></li>
+					<li data-bs-target="#slider" data-bs-slide-to="2"></li>
+				</ol>
+				<!-- Slider -->
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src="../images/ban1.png" class="d-block" alt="...">
+					</div>
+					<div class="carousel-item">
+						<img src="../images/ban2.png" class="d-block" alt="...">
+					</div>
+					<div class="carousel-item">
+						<img src="../images/ban3.png" class="d-block" alt="...">
+					</div>
+				</div>
+				<a class="carousel-control-prev" href="#slider" role="button" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</a>
+				<a class="carousel-control-next" href="#slider" role="button" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</a>
+			</div>
+		</div>
+	</div> <!-- Intro Area End -->
+
+	<!-- Best Area Start -->
+	<div id="best">
+		<!--contents-->
+		<div id="contents">
+
+			<!--product-select-->
+			<div class="product-select">
+				<div class="container">
+
+					<!-- title -->
+					<div class="title">
+						<h2>이달의 신상품</h2>
+						<a href="/productList">다른 상품 더보기 <i class='fa fa-angle-right' aria-hidden='true'></i></a>
+					</div>
+
+					<div class="content">
+						<div th:each="product : ${cntPro}">
+							<div>
+								<div class="img-box"><img th:src="@{|/files/${product.productImage}|}"
+										th:alt="${product.productName}"></div>
+								<h3 th:text="${product.productName}"></h3>
+								<p th:text="'₩' + ${product.productPrice}"></p>
+								<a th:href="@{'/productArticle?seq=' + ${product.seq}}" class="btn">자세히 보기</a>
+							</div>
+						</div>
+					</div>
+
+				</div><!--p-container-->
+			</div><!--product-select-->
+
+
+
+		</div><!--contents-->
+	</div> <!-- About Area End -->
+
+
+	<!-- Test Area Start -->
+	<div id="test">
+		<div class="container">
+
+			<div>
+				<img src="../images/2.jpg" alt="test">
+				<div class="text-box">
+					<h3>SKIN TEST</h3>
+					<p>피부 테스트</p>
+					<p>피부 테스트로 당신에게 맞는 제품을 찾아보세요 </p>
+					<a href="/facecheck" class="btn">테스트 하러가기</a>
+				</div>
+			</div>
+
+		</div>
+
+	</div> <!-- Skills Area End -->
+
+
+	<!-- Review Area Start -->
+	<div id="review">
+		<div class="container">
+
+			<!-- ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~- -->
+			<div class="title">
+				<h2>BEST REVIEW</h2>
+				<a href="/getReviewList">리뷰 더보기 <i class='fa fa-angle-right' aria-hidden='true'></i></a>
+			</div>
+
+			<div class="row justify-content-center row-cols-md-2">
+				<div class="col-md-2" th:each="review, iterStat : ${reviews}" th:if="${iterStat.index < 5}">
+					<div class="card"
+						style="width: 20rem; height: 350px; margin-bottom: 100px; display: flex; flex-direction: column;"
+						th:data-reviewImage="@{|/review/${review.reviewImage}|}" th:data-product="${review.product}"
+						th:data-reviewContent="${review.reviewContent}" th:data-rating="${review.rating}"
+						th:data-reviewWriter="${review.reviewWriter}" th:data-reviewDate="${review.reviewDate}">
+						<img th:src="@{|/review/${review.reviewImage}|}" class="card-img-top mx-auto d-block"
+							style="width:180px; height: 180px;">
+						<div class="card-body" style="flex-grow: 1;">
+							<h5 class="card-title" th:text="${review.product}"
+								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></h5>
+							<p><span class="card-text" id="star" th:text="${review.rating}"></span></p>
+							<p class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+								th:text="${review.reviewContent}"></p>
+							<p class="card-text"><small class="text-muted"
+									th:text="${review.reviewWriter} + ' 님'"></small></p>
+							<div class="card-footer">
+								<small class="card-text"
+									th:text="${#dates.format(review.reviewDate, 'yyyy-MM-dd')}"></small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 모달창 -->
+			<div id="myModal" class="modal">
+				<div class="modal-content">
+					<span class="close" onclick="hideModal()"
+						style="position: absolute; top: 10px; right: 10px;">&times;</span>
+					<div class="modal-info">
+						<img id="modalImage">
+						<div class="modal-text">
+							<p>평점 :<span id="modalRating" style="margin-left: 10px;"></span></p>
+							<p><span id="modalProduct"></span></p>
+
+							<p id="modalReviewWriter"></p>
+							<p id="modalReviewContent"></p>
+							<p id="modalDate"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script>
+
+				cards.forEach((card) => {
+					card.addEventListener('click', function () {
+						const reviewImage = card.getAttribute('data-reviewImage');
+						const reviewContent = card.getAttribute('data-reviewContent');
+						const reviewWriter = card.getAttribute('data-reviewWriter');
+						const reviewDate = card.getAttribute('data-reviewDate');
+						const product = card.getAttribute('data-product');
+
+						showModal(reviewImage, reviewContent, rating, reviewWriter, reviewDate, product);
+					});
+				});
+
+				function showModal(imageUrl, reviewContent, rating, reviewWriter, reviewDate, product) {
+					var modal = document.getElementById("myModal");
+					var modalImage = document.getElementById("modalImage");
+					var modalReviewContent = document.getElementById("modalReviewContent");
+
+					var modalRating = document.getElementById("modalRating");
+					var modalReviewWriter = document.getElementById("modalReviewWriter");
+					var modalDate = document.getElementById("modalDate");
+					var modalProduct = document.getElementById("modalProduct");
+
+					modalImage.src = imageUrl;
+					modalReviewContent.textContent = reviewContent;
+					modalProduct.textContent = product;
+
+					modalRating.textContent = rating;
+					modalReviewWriter.textContent = reviewWriter + ' 님';
+
+					// 날짜에서 시, 분, 초를 제거하여 표시
+					const date = new Date(reviewDate);
+					const dateString = date.toLocaleDateString();
+					modalDate.textContent = dateString;
+
+					modal.style.display = "block";
+				}
+
+				function hideModal() {
+					var modal = document.getElementById("myModal");
+					modal.style.display = "none";
+				}
+			</script>
+			<!-- ~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~- -->
+
+
+			<!-- footer Area Start -->
+			<div id="footer">
+
+				<div class="f_wrap">
+					<div class="tail_con">
+
+						<div class="copyright">
+
+							<div class="f_info">
+								<div class="tel"><i class="fa fa-phone"></i>1588-5890</div>
+								<div class="time">수업시간 : 09:00 - 18:00<br /> 점심시간 11:50 - 13:00</div>
+
+								<div class="qna">
+									토, 일, 공휴일은 휴무입니다.<br />
+									문의사항은 Q&amp;A게시판을 이용해주세요.
+									<a href="#">Q&amp;A게시판</a>
+								</div>
+							</div>
+							<div class="f_title">COMPANY</div>
+							Company Name : BKL3<br />
+							Business License No : 123-45-67890 [사업자정보확인]<br />
+							E-Commerce Registration : 2020-서울송파-1274 <br />
+							Address : 서울특별시 강남구 현익빌딩 3층, 4층<br />
+							Tel. 1599-5890<br />
+							CEO : BKL3<br />
+							호스팅 업체 : KOREAIT<br />
+							Copyright © KOREAIT All Rights Reserved.
+							<div class="kakaomap">
+								<div class="map" id="map"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- f-menu -->
+				<div class="f-menu">
+					<div class="tail_con">
+						<ul>
+							<li><a href="/introduce">회사소개</a></li>
+							<li><a href="/agreement">이용약관</a></li>
+							<li><a href="/privacy">개인정보처리방침</a></li>
+							<li><a href="/qaBoardList">고객센터</a></li>
+						</ul>
+
+						<div class="sns">
+							<div class="bsns_wrap">
+								<img src="https://themedicube.co.kr/web/upload/images/bsns_11.png" alt="" />
+								<img src="https://themedicube.co.kr/web/upload/images/bsns_12.png" alt="" />
+								<img src="https://themedicube.co.kr/web/upload/images/bsns_13.png" alt="" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> <!-- footer Area End -->
+			<!-- 카카오 맵 -->
+			<script type="text/javascript"
+				src="//dapi.kakao.com/v2/maps/sdk.js?appkey=34f204087c3999e3bd4d887243cb9571"></script>
+			<!-- Bootstrap JS : 개발완료 후 CDN 변경 -->
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+			<!-- jQuery Insert -->
+			<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+			<script src='../js/main.js'></script>
+
+</body>
+
+</html>

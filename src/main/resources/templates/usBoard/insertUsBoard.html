@@ -1,0 +1,119 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>insertBoard/html</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+
+	<style>
+		.container {
+			padding: 65px 67px;
+		}
+
+		h1 {
+			text-align: center;
+			color: #d55e2d;
+		}
+
+		form {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			margin: 30px auto 30px;
+			text-align: center;
+		}
+
+		table {
+			margin: auto;
+			width: 70%;
+			border-collapse: collapse;
+			margin-top: 20px;
+			background-color: #fff;
+		}
+
+		th,
+		td {
+			padding: 10px;
+			text-align: center;
+			border: 1px solid #ddd;
+		}
+
+		input[type="text"],
+		textarea {
+			width: 100%;
+			padding: 8px;
+			box-sizing: border-box;
+			margin-bottom: 10px;
+			border: 1px solid #d55e2d;
+			border-radius: 4px;
+			resize: none;
+		}
+
+		input[type="submit"],
+		a.link {
+			background-color: #d55e2d;
+			color: #fff;
+			border: none;
+			padding: 10px 20px;
+			text-decoration: none;
+			border-radius: 4px;
+			cursor: pointer;
+			margin: 20px auto;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #b84827;
+		}
+
+		a.link {
+			font-size: 14px;
+		}
+
+		a.link:hover {
+			background-color: #b84827;
+		}
+	</style>
+
+</head>
+
+
+<body>
+
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<form action="insertUsBoard" method="post">
+			<h1>자주하는 질문 작성</h1>
+			<input type="hidden" name="id" th:value="${user.id}" />
+			<table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">
+				<tr>
+					<td width="70" th:text="'제 목'"></td>
+					<td><input type="text" name="usTitle" /></td>
+				</tr>
+				<tr>
+					<td width="70" th:text="작성자"></td>
+					<td><input type="text" name="usWriter" value="관리자" readonly /></td>
+				</tr>
+				<tr>
+					<td width="70" th:text="'내 용'"></td>
+					<td>
+						<textarea name="usContent" rows="10" cols="40"></textarea>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<div th:align="center">
+			<input type="submit" value="완료" />
+			<a class="link" th:href="@{/usBoardList}">목록</a>
+		</div>
+		<footer th:replace="footer::footer"></footer>
+	</div>
+
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

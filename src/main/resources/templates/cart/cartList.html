@@ -1,0 +1,164 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>CartList</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<style>
+	.title {
+		text-align: center;
+		color: #d55e2d;
+		margin-bottom: 30px;
+	}
+
+	.container {
+		padding: 67px 65px;
+	}
+
+	#cartlist {
+		background-color: #fff;
+		padding: 20px;
+		border-radius: 8px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		margin-bottom: 65px;
+	}
+
+	table {
+		margin: 30px auto;
+		border-collapse: collapse;
+	}
+
+	td {
+		padding: 10px;
+		text-align: center;
+		border: 1px solid #d55e2d;
+	}
+
+	.tr {
+		background-color: #d55e2d;
+		color: #fff;
+	}
+
+	input[type="text"],
+	input[type="password"] {
+		width: calc(100% - 16px);
+		padding: 8px;
+		box-sizing: border-box;
+		margin-bottom: 10px;
+		border: 1px solid #d55e2d;
+	}
+
+	input[type="submit"] {
+		background-color: #d55e2d;
+		color: #fff;
+		padding: 10px 20px;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+	input[type="submit"]:hover {
+		background-color: #b84827;
+	}
+
+	p {
+		text-align: center;
+	}
+
+	.price {
+		font-weight: bold;
+		font-size: 25px;
+	}
+
+	.delete {
+		color: #000;
+	}
+
+	.delete:hover {
+		color: #d55e2d;
+	}
+
+	input[type="button"] {
+		background-color: #d55e2d;
+		color: #fff;
+		padding: 10px 20px;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		margin: 10px;
+	}
+
+	input[type="button"]:hover {
+		background-color: #b84827;
+	}
+</style>
+<script src="/js/cart/cartList.js"></script>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<h1 class="title">장바구니</h1>
+		<div id="cartlist">
+			<th:block th:if="${!cartItems.isEmpty}">
+				<table th:align="center">
+					<tr>
+						<td><input type="checkbox" id="checkBoxs" checked="true"></td>
+						<td th:text="상품코드"></td>
+						<td th:text="상품명"></td>
+						<td th:text="수량"></td>
+						<td th:text="가격"></td>
+						<td th:text="사진"></td>
+						<td th:text="비고"></td>
+					</tr>
+					<tr th:each="items : ${cartItems}">
+						<div id="product">
+
+							<td><input type="checkbox" name="cartChecked" th:value="${items.cartCode}"
+									onchange="totalPrice()">
+							</td>
+
+							<td th:text="${items.cartCode}"></td>
+							<td th:text="${items.cartName}" th:id="cartName + ${items.cartCode}"></td>
+							<td>
+								<input type="button" th:attr="onclick='plusCount(\'' + ${items.cartCode} + '\')'"
+									value="+" />
+								<span th:text="${items.cartCount}" th:id="${items.cartCode}"></span>
+								<input type="button" th:attr="onclick='minusCount(\'' + ${items.cartCode} + '\')'"
+									value="-" />
+							</td>
+							<td th:text="${items.cartPrice}*${items.cartCount}" name="cartPrice"
+								th:id="cartPrice + ${items.cartCode}"></td>
+							<input type="hidden" th:id="price + ${items.cartCode}" th:value="${items.cartPrice}">
+						</div>
+						<td>
+							<img th:src="@{|/files/${items.cartImage}|}" alt="업로드중입니다."
+								style="width: 150px; height: 150px;">
+						</td>
+						<td><a class="delete" th:href="@{/deleteCart(cartCode=${items.cartCode})}">삭제</a></td>
+					</tr>
+				</table>
+				<p class="price">총 가격 : <span id="totalPrice"
+						th:text="${#numbers.formatInteger(totalPrice, 3, 'COMMA')}"></span><span>원</span></p>
+				<div th:align="center">
+					<input type="submit" value="주문하기" onclick="buyCart()" />
+				</div>
+			</th:block>
+			<th:block th:if="${cartItems.isEmpty}">
+				<p>장바구니에 상품이 없습니다</p>
+				<div th:align="center">
+					<input type="button" value="쇼핑하러가기" onclick="location.href='/productList'">
+				</div>
+			</th:block>
+		</div>
+		<footer th:replace="footer::footer"></footer>
+	</div>
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

@@ -1,0 +1,221 @@
+<!-- 전체 리뷰 목록 -->
+
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>getReviewList.html</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<style>
+		.title {
+			text-align: center;
+			color: #d55e2d;
+			margin-top: 10px;
+		}
+
+		.container {
+			padding: 67px 65px;
+		}
+
+		table {
+			width: 700px;
+			border-collapse: collapse;
+			margin-top: 20px;
+			margin-bottom: 50px;
+			table-layout: fixed;
+		}
+
+		.review {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			width: 70%;
+			margin: 30px auto 60px;
+			text-align: center;
+		}
+
+		tr td {
+			border-bottom: 1px solid #ddd;
+			padding: 10px;
+		}
+
+		td#first {
+			width: 100px;
+		}
+
+		span#star {
+			color: red;
+		}
+
+		input[type="text"] {
+			height: 33px;
+			border: 1px solid #d55e2d;
+		}
+
+		select {
+			height: 33px;
+			border: 1px solid #d55e2d;
+		}
+
+
+		button {
+			background-color: #d55e2d;
+			color: #fff;
+			padding: 8px 12px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		button:hover {
+			background-color: #b84827;
+		}
+
+		a.review-link,
+		input[type="button"] {
+			display: inline-block;
+			padding: 10px 20px;
+			background-color: #d55e2d;
+			color: #fff;
+			text-decoration: none;
+			border-radius: 4px;
+			margin-left: 20px;
+			border: none;
+		}
+
+		a.review-link:hover,
+		input[type="button"]:hover {
+			background-color: #b84827;
+		}
+
+		.pagination {
+			text-align: center;
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+
+		.pagination a,
+		.pagination strong {
+			display: inline-block;
+			padding: 8px 12px;
+			margin: 0 4px;
+			border: 1px solid #ddd;
+			text-decoration: none;
+			color: #333;
+			border-radius: 4px;
+		}
+
+		.pagination strong {
+			background-color: #d55e2d;
+			color: #fff;
+		}
+
+		.fir {
+			color: #d55e2d;
+		}
+
+		#first {
+			font-weight: bold;
+		}
+	</style>
+</head>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<div class="review">
+			<h1 class="title">꼼꼼 리뷰</h1>
+			<form th:align="right">
+				<a class="review-link" href="insertReview">리뷰 등록</a>
+				<a class="review-link" href="/getReviewList">리뷰 전체 보기</a>
+			</form>
+
+			<table th:each="review, state : ${ReviewList}" align="center">
+				<p></p>
+				<tr colspan="2" rowspan="2">
+					<td id="first">
+						<span th:text="${review.reviewWriter}"></span> 님 <br />
+					</td>
+					<td colspan="5" style="text-align:left;">
+						<span id="star" th:text="${review.rating}"></span> &nbsp;&nbsp;|&nbsp;&nbsp;
+						<span th:text="${review.product}"></span>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<span th:text="${#dates.format(review.reviewDate, 'yyyy-MM-dd')}"></span>
+					</td>
+				</tr>
+				<tr>
+					<td rowspan="2" id="first">
+						<span th:if="${user.id == review.reviewid|| user.id == 'manager'}">
+							<span>
+								<a class="fir" th:href="@{/reviewModify(seq=${review.seq})}">수정</a>
+							</span><br /><br>
+							<span>
+								<a class="fir" th:href="@{/deleteReview(seq=${review.seq})}">삭제</a>
+							</span>
+						</span>
+						<br /><br />
+					</td>
+					<td colspan="5" th:text="${review.reviewContent}"></td>
+				</tr>
+				<tr th:if="${review.reviewImage ne 'non'}">
+					<td colspan="5" rowspan="5">
+						<img th:src="@{|/review/${review.reviewImage}|}" style="width: 200px; height: 200px;">
+					</td>
+				</tr>
+			</table>
+			<a th:if="${page != null && page != nowPage}"
+				th:href="@{/getReviewList(page = ${page - 1}, searchKeyword = ${param.searchKeyword}, select = ${param.select})}"
+				th:text="${page}"></a>
+
+			<th:block th:if="${ReviewList.isEmpty}">
+				<p>리뷰가 없습니다</p>
+				<div th:align="center">
+					<input type="button" value="리뷰작성" onclick="location.href='/insertReview'">
+				</div>
+			</th:block>
+		</div>
+		<div th:align="center">
+
+			<div th:if="${!ReviewList.empty}">
+				<div class="pagination">
+					<th:block th:if="${startPage > 1}">
+						<a
+							th:href="@{/getReviewList(page=${startPage-2}, searchKeyword=${param.searchKeyword}, select=${param.select})}">&lt;
+							이전</a>
+					</th:block>
+
+					<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+						<a th:if="${page != nowPage}"
+							th:href="@{/getReviewList(page=${page-1}, searchKeyword=${param.searchKeyword}, select=${param.select})}"
+							th:text="${page}"></a>
+						<strong th:if="${page == nowPage}" th:text="${page}"></strong>
+					</th:block>
+
+					<th:block th:if="${endPage < ReviewList.totalPages}">
+						<a th:if="${ReviewList.totalPages - endPage > 0}"
+							th:href="@{/getReviewList(page=${endPage}, searchKeyword=${param.searchKeyword}, select=${param.select})}">다음
+							&gt;</a>
+					</th:block>
+				</div>
+			</div>
+		</div>
+		<form th:action="@{/getReviewList}" method="get" th:align="center">
+			<select name="select">
+				<option value="product">제품</option>
+				<option value="reviewContent">상세내용</option>
+				</option>
+			</select>
+			<input type="text" name="searchKeyword">
+			<button type="submit">검색</button>
+		</form>
+		<footer th:replace="footer::footer"></footer>
+	</div>
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>usBoardList.html</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+
+	<style>
+		.title {
+			text-align: center;
+			color: #d55e2d;
+			margin-top: 20px;
+		}
+
+		.container {
+			padding: 67px 65px;
+		}
+
+		form {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			margin: 30px auto 30px;
+			text-align: center;
+		}
+
+		table {
+			width: 70%;
+			border-collapse: collapse;
+			border: 1px solid #d55e2d;
+			margin-top: 30px;
+			margin-bottom: 30px;
+			background-color: #fff;
+		}
+
+		th,
+		td {
+			border: 1px solid #d55e2d;
+			padding: 10px;
+			text-align: center;
+			font-size: 14px;
+		}
+
+		th {
+			background-color: #d55e2d;
+			color: #fff;
+		}
+
+		a {
+			color: #d55e2d;
+			text-decoration: none;
+		}
+
+		a:hover {
+			color: #b84827;
+		}
+
+		th:block {
+			display: block;
+		}
+
+		th:if {
+			display: block;
+		}
+
+		.link {
+			display: inline-block;
+			padding: 10px 20px;
+			background-color: #d55e2d;
+			color: #fff;
+			text-decoration: none;
+			border-radius: 4px;
+			margin-bottom: 20px;
+		}
+		.link:hover{
+			background-color: #b84827;
+			color: #fff;
+		}
+	</style>
+</head>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<form>
+			<h1 class="title">자주 묻는 질문 TOP10</h1>
+			<table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0" th:width="700">
+				<tr>
+					<th width="50">번호</th>
+					<th width="200">제목</th>
+					<th width="100">작성자</th>
+					<th width="100">작성일</th>
+					<th width="50">조회수</th>
+				</tr>
+				<tr th:each="board, state : ${boardList }">
+					<td th:text="${state.count}"></td>
+					<td><a th:href="@{/usBoard(seq=${board.seq})}" th:text="${board.usTitle}"></a></td>
+					<td th:text="${board.usWriter}"></td>
+					<td th:text="${#dates.format(board.createDate, 'yyyy-MM-dd')}">
+					<td th:text="${board.usCnt}"></td>
+				</tr>
+			</table>
+		</form>
+		<!-- 관리자만 작성 가능해야 함 -->
+		<div th:align="center">
+			<a class="link" th:if="${session['user'] != null && #strings.equals(session['user'].id,'manager')}"
+				href="insertUsBoard">새글등록</a>
+		</div>
+		<footer th:replace="footer::footer"></footer>
+	</div>
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

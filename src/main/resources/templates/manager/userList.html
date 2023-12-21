@@ -1,0 +1,136 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>유저관리</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<style>
+		h1 {
+			text-align: center;
+			color: #d55e2d;
+		}
+
+		table {
+			width: 85%;
+			margin: auto;
+			border-collapse: collapse;
+			margin-top: 20px;
+		}
+
+		.container {
+			padding: 67px 65px;
+		}
+
+		form {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			margin-top: 20px;
+			margin-bottom: 30px;
+		}
+
+		th,
+		td {
+			padding: 10px;
+			text-align: center;
+			border: 1px solid #ddd;
+		}
+
+		th {
+			background-color: #d55e2d;
+			color: #fff;
+		}
+
+		a {
+			color: #d55e2d;
+		}
+
+		.pagination {
+			text-align: center;
+			margin: 20px 0;
+		}
+
+		.pagination a,
+		.pagination strong {
+			display: inline-block;
+			padding: 8px 12px;
+			margin: 0 4px;
+			border: 1px solid #ddd;
+			text-decoration: none;
+			color: #333;
+			border-radius: 4px;
+		}
+
+		.pagination strong {
+			background-color: #d55e2d;
+			color: #fff;
+		}
+	</style>
+</head>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<form>
+			<h1>유저 목록</h1>
+			<table border="1">
+				<tr>
+					<th th:text="아이디"></th>
+					<th th:text="비밀번호">
+						</td>
+					<th th:text="이름">
+						</td>
+					<th th:text="이메일">
+						</td>
+					<th th:text="휴대폰번호">
+						</td>
+					<th th:text="주소">
+						</td>
+					<th th:text="생성날짜"></th>
+					<th th:text="수정">
+						</td>
+					<th th:text="삭제">
+						</td>
+				</tr>
+				<tr th:each="user : ${userList}" border="1">
+					<td th:text="${user.id}"></td>
+					<td th:text="${user.password}"></td>
+					<td th:text="${user.name}"></td>
+					<td th:text="${user.email}"></td>
+					<td th:text="${user.phone}"></td>
+					<td th:text="${user.addr}"></td>
+					<td th:text="${user.createDate}"></td>
+					<td><a th:href="@{/userModify(id=${user.id})}">수정</a></td>
+					<td><a th:href="@{/deleteUser(id=${user.id}, name=${user.name})}">삭제</a></td>
+				</tr>
+			</table>
+		</form>
+		<div th:if="${!userList.empty}">
+			<div class="pagination">
+				<th:block th:if="${startPage > 1}">
+					<a th:href="@{/userlist(page=${startPage-2})}">&lt;
+						이전</a>
+				</th:block>
+
+				<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+					<a th:if="${page != nowPage}" th:href="@{/userlist(page=${page-1})}" th:text="${page}"></a>
+					<strong th:if="${page == nowPage}" th:text="${page}"></strong>
+				</th:block>
+
+				<th:block th:if="${endPage < userList.totalPages}">
+					<a th:if="${userList.totalPages - endPage > 0}" th:href="@{/userlist(page=${endPage})}">다음
+						&gt;</a>
+				</th:block>
+			</div>
+		</div>
+		<footer th:replace="footer::footer"></footer>
+	</div>
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

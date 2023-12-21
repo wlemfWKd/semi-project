@@ -1,0 +1,152 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>chBoardWrite</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<style>
+		h1 {
+			text-align: center;
+			color: #d55e2d;
+		}
+
+		.container {
+			padding: 67px 65px;
+		}
+
+		form {
+			background-color: #fff;
+			padding: 40px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			margin-top: 30px;
+		}
+
+		table {
+			margin: auto;
+			width: 50%;
+			border-collapse: collapse;
+		}
+
+		td {
+			padding: 10px;
+			text-align: center;
+			border: 1px solid #d55e2d;
+		}
+
+		input[type="text"],
+		input[type="password"],
+		textarea,
+		select,
+		input[type="file"] {
+			width: calc(100% - 16px);
+			padding: 8px;
+			box-sizing: border-box;
+			margin-bottom: 10px;
+			border: 1px solid #d55e2d;
+			resize: none;
+		}
+
+		input[type="submit"] {
+			background-color: #d55e2d;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			margin-top: 20px;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #b84827;
+		}
+
+		.priv {
+			display: block;
+			text-align: center;
+			margin-top: 10px;
+			color: #d55e2d;
+			margin-bottom: 30px;
+		}
+	</style>
+</head>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<h1>취소/반품 신청</h1>
+		<form action="chWritepro" method="post" encType="multipart/form-data" onsubmit="return validateForm()">
+			<input type="hidden" name="id" th:value="${user.id}" />
+			<table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">
+				<tr>
+					<td width="70" th:text="'신청유형'"></td>
+					<td><input type="radio" name="type" value="취소" /> 취소 &nbsp;&nbsp;
+						<input type="radio" name="type" value="반품" /> 반품
+					</td>
+				</tr>
+				<tr>
+					<td width="70" th:text="'제 목'"></td>
+					<td><input type="text" name="title" /></td>
+				</tr>
+				<tr>
+					<td width="70" th:text="작성자"></td>
+					<td><input type="text" name="writer" th:value="${user.name}" readonly /></td>
+				</tr>
+				<tr>
+					<td width="70" th:text="제품명"></td>
+					<td><select name="productSeq" id="productSelect">
+							<option value="-1">-- 선택 --</option>
+							<option th:each="product : ${list}" th:value="${product.Seq}"
+								th:text="${product.productName}">
+							</option>
+						</select>
+						<span id="productError" style="color: red;"></span>
+				</tr>
+				<tr>
+					<td width="70" th:text="'내 용'"></td>
+					<td>
+						<textarea name="content" rows="10" cols="40"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td width="70" th:text="'첨부파일 등록'"></td>
+					<td><input type="file" name="file"></td>
+				</tr>
+			</table>
+			<input type="hidden" name="productName" id="productName">
+			<div th:align="center">
+				<input type="submit" value="완료" />
+			</div>
+		</form>
+		<a class="priv" th:href="@{/chMain}">이전 페이지</a>
+		<footer th:replace="footer::footer"></footer>
+	</div>
+
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>
+<script>
+	document.getElementById('productSelect').addEventListener('change', function () {
+		var selectedOption = this.options[this.selectedIndex];
+		var productNameInput = document.getElementById('productName');
+
+		// 선택한 옵션의 productName 값을 hidden input에 설정
+		productNameInput.value = selectedOption.text;
+	});
+
+	function validateForm() {
+		var selectedProduct = document.getElementById('productSelect').value;
+		var productError = document.getElementById('productError');
+
+		if (selectedProduct === '-1') {
+			productError.innerText = '제품을 선택해주세요.';
+			return false; // 폼 서브밋 방지
+		} else {
+			productError.innerText = ''; // 오류 메시지 초기화
+			return true; // 폼 서브밋 허용
+		}
+	}
+</script>

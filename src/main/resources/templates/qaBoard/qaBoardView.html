@@ -1,0 +1,266 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>qaBoardView.html</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.js"
+		integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+	<style>
+		h1 {
+			text-align: center;
+			color: #d55e2d;
+		}
+
+		.container {
+			padding: 67px 65px;
+		}
+
+		.view {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			width: 70%;
+			margin: 30px auto 30px;
+			text-align: center;
+		}
+
+		table {
+			width: 80%;
+			margin: auto;
+			border-collapse: collapse;
+			margin-top: 20px;
+			background-color: #fff;
+		}
+
+		th,
+		td {
+			padding: 15px;
+			border: 1px solid #ddd;
+			text-align: left;
+		}
+
+		th {
+			background-color: #d55e2d;
+			color: #fff;
+		}
+
+		input[type="text"],
+		textarea {
+			width: 100%;
+			padding: 10px;
+			box-sizing: border-box;
+			margin-bottom: 10px;
+			border: 1px solid #d55e2d;
+			border-radius: 4px;
+			resize: none;
+		}
+
+		input[type="file"] {
+			width: 100%;
+			margin-bottom: 10px;
+		}
+
+		input[type="submit"] {
+			margin-bottom: 10px;
+			padding: 10px 20px;
+			background-color: #d55e2d;
+			color: #fff;
+			border-radius: 4px;
+			border: none;
+		}
+
+		a.write-link {
+			display: block;
+			margin-top: 20px;
+			text-align: center;
+			background-color: #d55e2d;
+			color: #fff;
+			padding: 10px 20px;
+			text-decoration: none;
+			border-radius: 4px;
+		}
+
+		a.write-link:hover {
+			background-color: #b84827;
+		}
+
+
+		th:block {
+			display: block;
+		}
+
+		th:if {
+			display: block;
+		}
+
+		a.button-link {
+			display: inline-block;
+			padding: 10px 20px;
+			background-color: #d55e2d;
+			color: #fff;
+			text-decoration: none;
+			border-radius: 4px;
+			margin-top: 20px;
+			margin-right: 20px;
+			margin-bottom: 20px;
+		}
+
+		a.button-link:hover {
+			background-color: #b84827;
+		}
+
+		.com td {
+			border: none;
+		}
+
+		.pagination {
+			text-align: center;
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+
+		.pagination a,
+		.pagination strong {
+			display: inline-block;
+			padding: 8px 12px;
+			margin: 0 4px;
+			border: 1px solid #ddd;
+			text-decoration: none;
+			color: #333;
+			border-radius: 4px;
+		}
+
+		.pagination strong {
+			background-color: #d55e2d;
+			color: #fff;
+		}
+
+		.comment {
+			width: 73%;
+		}
+
+		.del {
+			width: 10px;
+		}
+		button{
+			border: none;
+			background: none;
+			padding: 0;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<div class="view">
+			<h1>글보기</h1>
+			<input type="hidden" name="seq" th:value="${board.seq}" />
+			<table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">
+				<tr>
+					<td width="70" th:text="'제 목'"></td>
+					<td th:text="${board.title}"></td>
+				</tr>
+				<tr>
+					<td width="70" th:text="작성자"></td>
+					<td th:text="${board.writer}"></td>
+				</tr>
+				<tr>
+					<td width="70" th:text="'내 용'"></td>
+					<td>
+						<textarea name="content" rows="10" cols="40" th:text="${board.content}" readonly></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td width="70" th:text="작성일"></td>
+					<td th:text="${#dates.format(board.createDate, 'yyyy-MM-dd')}">
+				</tr>
+				<tr>
+					<td width="70" th:text="조회수"></td>
+					<td th:text="${board.cnt }"></td>
+				</tr>
+			</table>
+			<form action="/comment" id="commentForm" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="qaseq" th:value="${board.seq}" />
+				<input type="hidden" name="writer" th:value="${user.name}" />
+				<table class="com">
+					<td><textarea name="commento" rows="5" cols="70"></textarea></td>
+					<td><input type="submit" value="댓글쓰기" /></td>
+				</table>
+			</form>
+		</div>
+		<form action="/commentDelete">
+			<table class="comment" th:each="comment : ${comment}" border="1">
+				<input type="hidden" name="commentNum" th:value="${comment.commentNum}" />
+				<input type="hidden" name="qaseq" th:value="${board.seq}" />
+				<tr>
+					<td th:text="${comment.writer}"></td>
+					<td th:text="${comment.createDate}"></td>
+					<td class="del">
+						<button type="submit">
+							<i class="fa fa-times" aria-hidden="true"></i>
+						</button>
+					</td>
+				</tr>
+				<tr>
+					<td th:text="${comment.commento}" colspan="3"></td>
+				</tr>
+			</table>
+		</form>
+
+		<div th:if="${!comment.empty}">
+			<div class="pagination">
+				<th:block th:if="${startPage > 1}">
+					<a
+						th:href="@{/qaBoardView(seq=${board.seq}, page=${startPage-2}, searchKeyword=${param.searchKeyword})}">&lt;
+						이전</a>
+				</th:block>
+
+				<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+					<a th:if="${page != nowPage}"
+						th:href="@{/qaBoardView(seq=${board.seq}, page=${page-1}, searchKeyword=${param.searchKeyword})}"
+						th:text="${page}"></a>
+					<strong th:if="${page == nowPage}" th:text="${page}"></strong>
+				</th:block>
+
+				<th:block th:if="${endPage < comment.totalPages}">
+					<a th:if="${comment.totalPages - endPage > 0}"
+						th:href="@{/qaBoardView(seq=${board.seq}, page=${endPage}, searchKeyword=${param.searchKeyword})}">다음
+						&gt;</a>
+				</th:block>
+			</div>
+		</div>
+
+
+		<div th:align="center">
+			<th:block th:if="${session['user'] != null && #strings.equals(session['user'].id,'manager')}">
+				<a class="button-link" th:href="@{/deleteQaBoard(seq=${board.seq})}">글삭제</a>
+			</th:block>
+
+			<th:block th:if="${session['user'].id == board.id}">
+				<a class="button-link" th:href="@{/modifyQaBoard(seq=${board.seq})}">글수정</a>
+			</th:block>
+
+			<th:block th:if="${session['user'].id == board.id && session['user'].id != 'manager'}">
+				<a class="button-link" th:href="@{/deleteQaBoard(seq=${board.seq})}">글삭제</a>
+			</th:block>
+
+			<a class="button-link" th:href="@{/qaBoardList}">글목록</a>
+		</div>
+
+		<footer th:replace="footer::footer"></footer>
+	</div>
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

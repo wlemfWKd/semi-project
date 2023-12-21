@@ -1,0 +1,141 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>chBoardModify.html</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<style>
+		h1 {
+			text-align: center;
+			color: #d55e2d;
+		}
+
+		.container {
+			padding: 67px 65px;
+		}
+
+		form {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			margin-top: 20px;
+			margin-bottom: 30px;
+		}
+
+		table {
+			margin: auto;
+			width: 70%;
+			border-collapse: collapse;
+			margin-top: 20px;
+		}
+
+		th,
+		td {
+			padding: 10px;
+			text-align: center;
+			border: 1px solid #ddd;
+		}
+
+		input[type="text"] {
+			padding: 8px;
+			box-sizing: border-box;
+			margin-bottom: 10px;
+			border: 1px solid #d55e2d;
+			width: calc(100% - 20px);
+		}
+
+		textarea,
+		input[name="title"] {
+			width: calc(100% - 20px);
+			padding: 8px;
+			box-sizing: border-box;
+			margin-bottom: 10px;
+			border: 1px solid #d55e2d;
+			resize: none;
+		}
+
+		textarea {
+			padding: 8px;
+			box-sizing: border-box;
+			margin-bottom: 10px;
+			border: 1px solid #d55e2d;
+		}
+
+		input[type="submit"] {
+			background-color: #d55e2d;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			margin-top: 30px;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #b84827;
+		}
+
+		.button-link {
+			background-color: #d55e2d;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 14px;
+		}
+
+		.button-link:hover {
+			background-color: #b84827;
+		}
+	</style>
+</head>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<h1>취소/반품 수정</h1>
+		<form th:action="@{/updateChBoard}" method="post" encType="multipart/form-data">
+			<input type="hidden" name="seq" th:value="${board.seq}" />
+			<table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">
+				<tr>
+					<td width="70" th:text="'제 목'"></td>
+					<td><input name="title" th:value="${board.title }" /></td>
+				</tr>
+				<tr>
+					<td width="70" th:text="작성자"></td>
+					<td th:text="${board.writer }"></td>
+				</tr>
+				<tr>
+					<td width="70" th:text="'내 용'"></td>
+					<td>
+						<textarea name="content" rows="10" cols="40" th:text="${board.content }"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td width="70" th:text="작성일"></td>
+					<td th:text="${#dates.format(board.createDate, 'yyyy-MM-dd')}">
+				</tr>
+				<tr>
+					<td width="70" th:text="'첨부파일 등록'"></td>
+					<td><input type="file" name="file"></td>
+				</tr>
+			</table>
+			<div th:align="center">
+				<input type="submit" value="수정" />
+				<a class="button-link" th:href="@{/deleteQaBoard(seq=${board.seq})}">삭제</a>
+				<a class="button-link" th:href="@{/qaBoardList}">목록</a>
+			</div>
+		</form>
+		<footer th:replace="footer::footer"></footer>
+	</div>
+
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

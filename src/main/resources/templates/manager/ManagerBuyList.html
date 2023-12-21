@@ -1,0 +1,93 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>userBuyList</title>
+<link rel="stylesheet" href="../css/serve-footer.css">
+   <link rel="stylesheet" href="../css/serve-header.css">
+   <!-- icon -->
+   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+       <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #d55e2d;
+        }
+
+        table {
+            margin: auto;
+            width: 1200px;
+            border-collapse: collapse;
+            border: 1px solid #d55e2d;
+        }
+
+        th, td {
+            border: 1px solid #d55e2d;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #d55e2d;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            text-decoration: none;
+            color: #d55e2d;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body th:align="center">
+	<header th:replace="header::header"></header> 
+	<h1> 유저 구매 내역 </h1>
+	<table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0" th:width="1000">
+		<tr>
+			<th width="30">번호</th>
+			<th width="50">아이디</th>
+			<th width="50">이름</th>
+			<th width="200">상품명</th>
+			<th width="100">상품가격</th>
+			<th width="50">상품수량</th>
+			<th width="200">주소</th>
+			<th width="100">구매일</th>
+		</tr>
+		<tr th:each="buy, state : ${allBuyList }">
+			<td th:text="${state.count}"></td>
+			<td th:text="${buy.id}"></td>
+			<td th:text="${buy.name}"></td>
+			<td th:text="${buy.productName}"></a></td>
+			<td th:text = "${buy.productPrice}"></td>
+			<td th:text = "${buy.productCount}"></td>
+			<td th:text = "${buy.addr}"></td>
+			<td th:text = "${#dates.format(buy.createdate, 'yyyy-MM-dd')}"></td>
+		</tr>
+	</table>
+	<br/>
+	
+	<!-- 내정보 가면 될듯 -->
+	<a th:href="@{/}">이전 페이지</a>
+
+	
+	<footer th:replace="footer::footer"></footer>
+</body>
+</html>

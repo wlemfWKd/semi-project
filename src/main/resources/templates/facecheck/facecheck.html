@@ -1,0 +1,108 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			align-items: center;
+			justify-content: center;
+			min-height: 100vh;
+		}
+
+		h1 {
+			text-align: center;
+			color: #d55e2d;
+		}
+
+		.container {
+			padding: 67px 65px;
+		}
+
+		form {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			width: 70%;
+			margin: 30px auto 60px;
+			text-align: center;
+		}
+
+		h3 {
+			margin-bottom: 10px;
+		}
+
+		input[type="radio"] {
+			margin-right: 10px;
+		}
+
+		input[type="submit"] {
+			background-color: #d55e2d;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			margin-top: 20px;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #b84827;
+		}
+	</style>
+</head>
+<script src="/js/facecheck/facecheck.js"></script>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<h1>피부 진단 페이지</h1>
+		<form action="/checkResult" method="post" name="Result">
+			<h3>피부 타입</h3>
+			<input type="radio" name="type" value="지성" />지성
+			<input type="radio" name="type" value="건성" />건성
+			<input type="radio" name="type" value="복합" />복합
+			<br /><br />
+			<h3>피부 고민</h3>
+			<input type="radio" name="trouble" value="여드름,뾰루지" />여드름,뾰루지
+			<input type="radio" name="trouble" value="건조" />건조
+			<input type="radio" name="trouble" value="흉터" />흉터
+			<br /><br />
+			<h3>얼굴에 주근깨, 기미 정도가 어떻게 되나요?</h3>
+			<input type="radio" name="dot" value="전혀없음" />전혀없음
+			<input type="radio" name="dot" value="약간있음" />약간있음
+			<input type="radio" name="dot" value="많음" />많음
+			<br /><br />
+			<h3>여드름이나 피부 외상 회복 후 색소가 어둡게 남는 편인가요?</h3>
+			<input type="radio" name="color" value="전혀 남지 않음" />전혀 남지 않음
+			<input type="radio" name="color" value="때때로 남음" />때때로 남음
+			<input type="radio" name="color" value="항상남음" />항상남음
+			<br /><br />
+			<h3>또래와 비교했을 때 당신은 얼마나 나이 들어 보이나요?</h3>
+			<input type="radio" name="older" value="어려 보임" />어려 보임
+			<input type="radio" name="older" value="나이대로 보임" />나이대로 보임
+			<input type="radio" name="older" value="늙어 보임" />늙어 보임
+			<br /><br />
+			<h3>당신의 성별을 골라주세요</h3>
+			<input type="radio" name="gender" value="여성" />여성
+			<input type="radio" name="gender" value="남성" />남성
+			<br /><br />
+			<input type="submit" value="피부진단" />
+		</form>
+		<footer th:replace="footer::footer"></footer>
+	</div>
+	
+	
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

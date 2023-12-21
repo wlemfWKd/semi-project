@@ -1,0 +1,86 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>제품리스트</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<link rel="stylesheet" href="../css/product/product.css">
+
+
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+</head>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+
+		<div class="product">
+			<h1>전체 제품</h1>
+			<br>
+			<br>
+			<form th:action="@{/productList}" method="get">
+				<div th:align="center">
+					<button type="submit" name="searchKeyword" th:value="m-">남성</button>&nbsp;&nbsp;
+					<button type="submit" name="searchKeyword" th:value="w-">여성</button>&nbsp;&nbsp;
+					<button type="submit" name="searchKeyword" th:value="c-">공용</button>
+				</div>
+			</form>
+			<br>
+			<table th:align="center" border="2" th:cellpadding="0" th:cellspacing="0" th:width="700">
+				<tr>
+					<th width="50">상품코드</th>
+					<th width="50">구분</th>
+					<th width="150">상품이미지</th>
+					<th width="100">상품명</th>
+					<th width="100">상품가격</th>
+					<th width="150">상품설명</th>
+				</tr>
+				<tr th:each="product : ${productList}">
+					<td><a th:href="@{/productArticle(seq=${product.seq})}" th:text="${product.productCode}"></a></td>
+					<td th:text="${product.productGender}"></td>
+					<td>
+						<a th:href="@{/productArticle(seq=${product.seq})}"><img
+								th:src="@{|/files/${product.productImage}|}" alt="업로드중입니다."
+								style="width: 150px; height: 150px;"></a>
+					</td>
+					<td th:text="${product.productName}"></td>
+					<td th:text="${#numbers.formatInteger(product.productPrice, 3, 'COMMA') + '원'}"></td>
+					<td th:text="${product.productContent}"></td>
+				</tr>
+			</table>
+		</div>
+		<br>
+		<br>
+		<div th:if="${!productList.empty}">
+			<div class="pagination">
+				<th:block th:if="${startPage > 1}">
+					<a th:href="@{/productList(page=${startPage-2}, searchKeyword=${param.searchKeyword})}">&lt;
+						이전</a>
+				</th:block>
+
+				<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+					<a th:if="${page != nowPage}"
+						th:href="@{/productList(page=${page-1}, searchKeyword=${param.searchKeyword})}"
+						th:text="${page}"></a>
+					<strong th:if="${page == nowPage}" th:text="${page}"></strong>
+				</th:block>
+
+				<th:block th:if="${endPage < productList.totalPages}">
+					<a th:if="${productList.totalPages - endPage > 0}"
+						th:href="@{/productList(page=${endPage}, searchKeyword=${param.searchKeyword})}">다음
+						&gt;</a>
+				</th:block>
+			</div>
+		</div>
+		<br>
+		<br>
+		<footer th:replace="footer::footer"></footer>
+	</div>
+	<!-- jQuery Insert -->
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

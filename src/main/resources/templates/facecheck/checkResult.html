@@ -1,0 +1,124 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<style>
+		.name {
+			font-size: 30px;
+			color: #d55e2d;
+		}
+
+		span {
+			font-size: 20px;
+			color: #d55e2d;
+			text-decoration: underline;
+			font-weight: bold;
+		}
+
+		form {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			margin-top: 20px;
+			margin-bottom: 30px;
+		}
+
+		.container {
+			padding: 67px 65px;
+		}
+
+		table {
+			border-collapse: collapse;
+			width: 100%;
+			max-width: 600px;
+			margin-bottom: 30px;
+			height: 300px;
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid #ddd;
+		}
+
+		th,
+		td {
+			padding: 15px;
+			text-align: left;
+		}
+
+		.button-link {
+			display: inline-block;
+			padding: 10px 20px;
+			background-color: #d55e2d;
+			color: aliceblue;
+			text-decoration: none;
+			border-radius: 5px;
+		}
+
+		.padding {
+			text-align: center;
+		}
+
+		.center-image {
+			display: flex;
+			justify-content: center;
+		}
+
+		.center-image img {
+			max-width: 100%;
+			height: auto;
+		}
+	</style>
+</head>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<form>
+			<div th:align="center">
+				<span class="name" th:text="${memberdto.name}"></span>님의 피부 진단 결과<br />
+				<br>
+				<label>피부가 타입은 <span th:text="${dto.type}"></span><br /></label>
+				<br>
+				피부 고민은 <span th:text="${dto.trouble}"></span><br />
+				<br>
+				주근깨 및 기미정도는 <span th:text="${dto.dot}"></span><br />
+				<br>
+				피부 외상 회복 후 색소 침착은 <span th:text="${dto.color}"></span><br />
+				<br>
+				또래와 비교했을 때 피부 나이가 <span th:text="${dto.older}"></span><br />
+			</div>
+			<br /><br /><br />
+			<h1 th:align="center"> 추천 제품 </h1>
+			<div class="center-image">
+				<img th:src="@{|/files/${prdto.productImage}|}" style="width: 300px; height: 300px;" />
+
+				<table>
+					<tr>
+						<td th:text="${prdto.productName}"></td>
+					</tr>
+					<tr>
+						<td th:text="${prdto.productContent}"></td>
+					</tr>
+					<tr>
+						<td class="padding"><a class="button-link"
+								th:href="@{/productArticle(seq=${prdto.Seq})}">자세히보기</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</form>
+		<footer th:replace="footer::footer"></footer>
+	</div>
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

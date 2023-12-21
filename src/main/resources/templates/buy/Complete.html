@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>pay</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+
+	<style>
+		.title {
+			color: #d55e2d;
+			margin-bottom: 30px;
+		}
+
+		.container {
+			padding: 65px 67px;
+		}
+
+		form {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			margin-bottom: 65px;
+			text-align: center;
+		}
+
+		.com {
+			font-weight: 600px;
+			font-size: 18px;
+			color: #d55e2d;
+			text-decoration: underline;
+		}
+	</style>
+</head>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<form>
+			<h1 class="title">구매가 완료 되었습니다</h1>
+			<a class="com" href="/">Home</a><br>
+			<a class="com" href="/getBuyList">구매내역 보기</a>
+
+		</form>
+		<footer th:replace="footer::footer"></footer>
+	</div>
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

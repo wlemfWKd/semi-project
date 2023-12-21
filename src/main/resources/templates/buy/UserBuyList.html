@@ -1,0 +1,187 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>userBuyList</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<style>
+		h1 {
+			text-align: center;
+			color: #d55e2d;
+		}
+
+		.container {
+			padding: 67px 65px;
+		}
+
+		.mybuy {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			margin-top: 20px;
+			margin-bottom: 30px;
+		}
+
+		table {
+			width: auto;
+			border-collapse: collapse;
+			border: 1px solid #d55e2d;
+			margin-top: 30px;
+			margin-bottom: 30px;
+		}
+
+		th,
+		td {
+			border: 1px solid #d55e2d;
+			padding: 10px;
+			text-align: center;
+		}
+
+		th {
+			background-color: #d55e2d;
+			color: #fff;
+		}
+
+		a.click {
+			text-decoration: none;
+			color: #d55e2d;
+		}
+
+		a.click:hover {
+			text-decoration: underline;
+		}
+
+		.modal {
+			display: none;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			padding: 20px;
+			background-color: #fff;
+			border: 1px solid #ccc;
+			z-index: 1000;
+		}
+
+		input[type="submit"] {
+			background-color: #d55e2d;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #b84827;
+		}
+
+		form {
+			margin-bottom: 0px;
+		}
+
+
+		.pagination {
+			text-align: center;
+			margin-top: 20px;
+		}
+
+		.pagination a,
+		.pagination strong {
+			display: inline-block;
+			padding: 8px 12px;
+			margin: 0 4px;
+			border: 1px solid #ddd;
+			text-decoration: none;
+			color: #333;
+			border-radius: 4px;
+		}
+
+		.pagination strong {
+			background-color: #d55e2d;
+			color: #fff;
+		}
+
+		.prev {
+			margin: 10px auto 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<div class="mybuy">
+			<h1> 나의 구매 내역 </h1>
+			<table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0" th:width="700">
+				<tr>
+					<th width="50">번호</th>
+					<th width="200">상품명</th>
+					<th width="100">상품가격</th>
+					<th width="100">상품수량</th>
+					<th width="100">구매일</th>
+					<th width="100">배송조회</th>
+					<th width="100">구매취소</th>
+				</tr>
+				<tr th:each="buy, state : ${buyList }">
+					<td th:text="${state.count}"></td>
+					<td th:text="${buy.productName}"></a></td>
+					<td th:text="${buy.productPrice}"></td>
+					<td th:text="${buy.productCount}"></td>
+					<td th:text="${#dates.format(buy.createdate, 'yyyy-MM-dd')}"></td>
+					<td>
+						<form th:id="'deliveryForm' + ${state.count}" action="/send" method="get" target="_blank">
+							<input type="submit" value="배송조회" />
+						</form>
+					</td>
+					<td><a class="click" th:href="@{/cancelbuy(seq=${buy.seq})}">주문 취소 신청</a></td>
+				</tr>
+			</table>
+		</div>
+
+		<div th:if="${!buyList.empty}">
+			<div class="pagination">
+				<th:block th:if="${startPage > 1}">
+					<a th:href="@{/getBuyList(page=${startPage-2}, searchKeyword=${param.searchKeyword})}">&lt;
+						이전</a>
+				</th:block>
+
+				<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+					<a th:if="${page != nowPage}"
+						th:href="@{/getBuyList(page=${page-1}, searchKeyword=${param.searchKeyword})}"
+						th:text="${page}"></a>
+					<strong th:if="${page == nowPage}" th:text="${page}"></strong>
+				</th:block>
+
+				<th:block th:if="${endPage < buyList.totalPages}">
+					<a th:if="${buyList.totalPages - endPage > 0}"
+						th:href="@{/getBuyList(page=${endPage}, searchKeyword=${param.searchKeyword})}">다음
+						&gt;</a>
+				</th:block>
+			</div>
+		</div>
+		<div th:align="center" class="prev">
+			<a class="click" th:href="@{/}">이전 페이지</a>
+		</div>
+		<footer th:replace="footer::footer"></footer>
+		<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+		<script src='../js/main.js'></script>
+</body>
+
+</html>
+
+<script>
+	document.querySelectorAll('form').forEach(function (form) {
+		form.addEventListener("submit", function (event) {
+			event.preventDefault(); // 기존의 form 제출 동작을 막습니다.
+
+			var popupOptions = "width=500,height=500,top=100,left=100";
+
+			window.open(this.action, "_blank", popupOptions);
+		});
+	});
+</script>

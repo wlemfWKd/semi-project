@@ -1,0 +1,374 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>productArticle</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<style>
+		.container {
+			padding: 67px 65px;
+		}
+
+		.prd_detail {
+			overflow: hidden;
+			margin: 0 100px 40px 100px;
+		}
+
+		.left {
+			width: 510px;
+			float: left;
+			margin-top: 5px;
+		}
+
+		.prd_img,
+		#mainImg {
+			width: 510px;
+			height: 510px;
+		}
+
+		.right {
+			width: 450px;
+			float: right;
+			margin-top: 60px;
+		}
+
+		.prd_info {
+			position: relative;
+			width: 100%;
+		}
+
+		.prd_name {
+			margin-top: 10px;
+			font-size: 26px;
+			line-height: 34px;
+		}
+
+		.price {
+			position: relative;
+			margin-top: 15px;
+			font-weight: 600;
+			color: #d55e2d;
+		}
+
+		.prd_cnt_box {
+			position: relative;
+			margin: 10px 0 0;
+			min-height: 60px;
+			padding: 15px 20px;
+			border: 1px solid #e9e9e9;
+			background: #f9f9f9;
+			border-radius: 5px;
+		}
+
+		.tit_area {
+			color: #333;
+			line-height: 30px;
+			position: absolute;
+			bottom: 30px;
+		}
+
+		.tit_area>span {
+			display: block;
+			font-weight: 700;
+		}
+
+		.count_area {
+			position: absolute;
+			bottom: 15px;
+			right: 22px;
+			max-width: 50%;
+		}
+
+		.option_cnt_box {
+			border-radius: 5px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+
+		.btnCalc {
+			float: left;
+			width: 29px;
+			height: 28px;
+			border-color: #e9e9e9;
+			border-radius: 5px;
+		}
+
+		#productCount1 {
+			float: left;
+			font-weight: 700;
+			width: 60px;
+			height: 26px;
+			border: 1px solid;
+			text-align: center;
+			color: #222;
+			line-height: 30px;
+			background-color: #fff;
+			border-color: #e9e9e9;
+			border-radius: 5px;
+		}
+
+		.prd_total_price {
+			overflow: hidden;
+			height: 60px;
+			margin: 10px 0 0;
+			padding: 18px 0 0;
+			border-bottom: 2px solid #d55e2d;
+			color: #d55e2d;
+			font-weight: 700;
+		}
+
+		.ptd_btn_area {
+			display: flex;
+			justify-content: space-between;
+			overflow: hidden;
+			margin: 10px 0 0;
+		}
+
+		#cart,
+		#buy {
+			border: 1px solid #d55e2d;
+			color: #d55e2d;
+			width: 220px;
+			height: 65px;
+			margin-left: 0;
+			font-size: 20px;
+			font-weight: 500;
+			cursor: pointer;
+		}
+
+		#buy {
+			background-color: #d55e2d;
+			color: #fff;
+		}
+
+		#buy:hover {
+			background-color: #fff;
+			color: #d55e2d;
+		}
+
+		#cart {
+			background-color: #fff;
+		}
+
+		#cart:hover {
+			background-color: #d55e2d;
+			color: #fff;
+		}
+
+		span#star {
+			color: red;
+		}
+		
+		h3{
+			color:#d55e2d
+		}
+
+		.pagination {
+			text-align: center;
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+
+		.pagination a,
+		.pagination strong {
+			display: inline-block;
+			padding: 8px 12px;
+			margin: 0 4px;
+			border: 1px solid #ddd;
+			text-decoration: none;
+			color: #333;
+			border-radius: 4px;
+		}
+
+		.pagination strong {
+			background-color: #d55e2d;
+			color: #fff;
+		}
+	</style>
+</head>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<div class="prd_detail">
+			<div class="left">
+				<div class="prd_img">
+					<img id="mainImg" th:src="@{|/files/${product.productImage}|}" alt="업로드중입니다.">
+				</div>
+			</div>
+			<div class="right">
+				<div class="prd_info">
+					<p class="prd_name" th:text="${product.productName}"></p>
+					<p class="price" th:text="|${product.productPrice}원|"></p>
+				</div>
+				<form id="yourFormId" method="GET">
+					<div class="option_add">
+						<div class="prd_cnt_box">
+							<div class="tit_area">
+								<span>구매수량</span>
+							</div>
+							<div class="count_area">
+								<span class="option_cnt_box">
+									<button class="btnCalc minus" type="button" onclick="minus()">-</button>
+									<p><span id="productCount1" name="productCount1">1</span></p>
+									<button class="btnCalc plus" type="button" onclick="plus()">+</button>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="prd_total_price">
+						<span class="tx_tit">상품금액 합계</span>
+
+						<input type="hidden" id="productPrice" name="productPrice" th:value="${product.productPrice}">
+						<span class="tx_cont">
+							<span class="tx_num" th:text="totalPrcTxt" id="totalPrcTxt" name="totalPrcTxt"></span>
+						</span>
+					</div>
+					<div class="ptd_btn_area">
+						<input type="hidden" id="seq1" name="seq1" th:value="${product.seq}" />
+						<input type="hidden" id="productCount2" name="productCount2" />
+						<input type="hidden" id="totalPrcTxt2" name="totalPrcTxt2" />
+						<input type="button" value="바로구매" id="buy">
+						<input type="button" value="장바구니" id="cart">
+					</div>
+				</form>
+			</div>
+		</div>
+		<br />
+		<br />
+		<hr>
+		<h3 th:align="center">Review</h3>
+		<br />
+		<table table style="margin: 0 auto; width: 80%; max-width: 1500px;" th:if="${not relatedReviews.empty}">
+			<tr>
+				<th style="width:130px;" th:align="center">이미지</th>
+				<th style="width:130px;" th:align="center">작성자</th>
+				<th style="width:130px;" th:align="center">별점</th>
+				<th th:align="center">내용</th>
+				<th style="width:200px" th:align="center">작성일</th>
+			</tr>
+			<tr th:each="review : ${relatedReviews}">
+				<td th:if="${review.reviewImage ne 'non'}" align="center"><img
+						th:src="@{|/review/${review.reviewImage}|} " style="width: 100px; height: 100px;">
+				</td>
+				<td th:if="${review.reviewImage == 'non'}" align="center"></td>
+				<td align="center"><span th:text="${review.reviewWriter}"></span></td>
+				<td align="center"><span id="star" th:text="${review.rating}"></span></td>
+				<td th:text="${review.reviewContent}"></td>
+				<td align="center"><span th:text="${#dates.format(review.reviewDate, 'yyyy-MM-dd')}"></span></td>
+			</tr>
+
+		</table>
+
+		<div th:if="${!relatedReviews.empty}">
+			<div class="pagination">
+				<th:block th:if="${startPage > 1}">
+					<a th:href="@{/productArticle(seq=${product.seq}, page=${startPage-2})}">&lt;
+						이전</a>
+				</th:block>
+
+				<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+					<a th:if="${page != nowPage}" th:href="@{/productArticle(seq=${product.seq}, page=${page-1})}"
+						th:text="${page}"></a>
+					<strong th:if="${page == nowPage}" th:text="${page}"></strong>
+				</th:block>
+
+				<th:block th:if="${endPage < relatedReviews.totalPages}">
+					<a th:if="${relatedReviews.totalPages - endPage > 0}"
+						th:href="@{/productArticle(seq=${product.seq}, page=${endPage})}">다음
+						&gt;</a>
+				</th:block>
+			</div>
+		</div>
+
+
+		<footer th:replace="footer::footer"></footer>
+	</div>
+	<!-- jQuery Insert -->
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+
+<script>
+	// 초기화 함수
+	function initialize() {
+		updateData(); // 초기화 시 가격 업데이트
+	}
+
+	function plus() {
+		var quantityElement = document.getElementById('productCount1');
+		var currentQuantity = parseInt(quantityElement.textContent, 10);
+		quantityElement.textContent = currentQuantity + 1;
+		updateData();
+	}
+
+	function minus() {
+		var quantityElement = document.getElementById('productCount1');
+		var currentQuantity = parseInt(quantityElement.textContent, 10);
+		if (currentQuantity > 1) {
+			quantityElement.textContent = currentQuantity - 1;
+			updateData();
+		}
+	}
+
+	function updateData() {
+		var productCount = document.getElementById('productCount1');
+		var productPrice = document.getElementById('productPrice');
+		var count = parseInt(productCount.innerText);
+		var price = parseInt(productPrice.value);
+		// 가격 계산
+		var totalPrice = count * price;
+
+		// 표시
+		var a = document.getElementById('totalPrcTxt');
+		a.innerText = totalPrice;
+	}
+
+	$(document).ready(function () {
+		initialize(); // 페이지 로드 시 초기화
+	});
+
+	$('#cart').click(function () {
+		var seq = document.getElementById('seq1').value;
+		var productCount = document.getElementById('productCount1').innerText;
+		var data = {
+			seq: parseInt(seq),
+			productCount: parseInt(productCount)
+		}
+		$.ajax({
+			type: 'POST',
+			url: '/insertCart',
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			data: JSON.stringify(data),
+			success: function (data) {
+				if (data == 1) {
+					alert("장바구니 추가 완료");
+				} else if (data == 2) {
+					location.href = "/login"
+				}
+			},
+			error: function (error) {
+				console.log("장바구니추가 에러" + error);
+			}
+		});
+	});
+
+	$('#buy').click(function () {
+		var productCount = document.getElementById('productCount1').innerText;
+		var productPrice = document.getElementById('totalPrcTxt').innerText;
+		document.getElementById('yourFormId').action = '/orderform'
+		document.getElementById("productCount2").value = productCount;
+		document.getElementById("totalPrcTxt2").value = productPrice;
+		document.getElementById('yourFormId').submit();
+	});
+</script>
+
+</html>

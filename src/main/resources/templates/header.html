@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<header th:fragment="header">
+	<!-- Header Area Start -->
+	<div class="fixed-top" id="header" th:fragment="headerFragment">
+		<div class="container-lg">
+
+			<!-- Logo -->
+			<h1><a href="/">B1L3</a></h1>
+
+			<!-- Gnb -->
+			<div id="gnb">
+
+				<ul class="mmenu">
+					<li class="main">
+						<a href="/productList">전제품</a>
+						<ul class="a">
+							<li><a class="sub" href="/productFemale">여성</a></li>
+							<li><a class="sub" href="/productMale">남성</a></li>
+							<li><a class="sub" href="/productCommon">공용</a></li>
+						</ul>
+					</li>
+					<li class="main">
+						<a href="/facecheck">TEST</a>
+					</li>
+					<li class="main">
+						<a href="/getReviewList">REVIEW</a>
+					</li>
+					<li class="main">
+						<a href="#">COMMUNITY</a>
+						<ul class="b">
+							<li><a class="sub" href="/qaBoardList">Q&A</a></li>
+							<li><a class="sub" href="/usBoardList">자주하는질문</a></li>
+							<li><a class="sub" href="/chMain">취소/반품</a></li>
+						</ul>
+					</li>
+					<li class="main">
+						<a href="/introduce">소개</a>
+					</li>
+					<li class="margin"></li>
+					<li class="side" th:if="${session.user != null && #strings.equals(session.user.id, 'manager')}">
+						<a href="#">관리 <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+						<ul class="c">
+							<li><a class="sub" th:if="${session.user != null && #strings.equals(session.user.id,'manager')}"
+									href="/productManagerList">제품관리</a></li>
+							<li><a class="sub" th:if="${session.user != null && #strings.equals(session.user.id,'manager')}"
+									href="/userlist">회원관리</a></li>
+							<li><a class="sub" th:if="${session.user != null && #strings.equals(session.user.id,'manager')}"
+									href="/chBoardList">취소/반품</a></li>
+						</ul>
+					</li>
+					<li class="side">
+						<a th:if="${session.user.id != null && session['user'].id != 'manager'}"
+							href="/getBuyList">구매내역</a>
+					</li>
+					<li class="side">
+						<a th:if="${session.user.id == null}" href="/login">로그인</a>
+					</li>
+					<li class="side">
+						<a th:if="${session.user.id != null}" href="/logout">로그아웃</a>
+					</li>
+					<li class="side">
+						<a th:if="${session.user.id == null}" href="/joinform">회원가입 </a>
+					</li>
+					<li class="side">
+						<a th:if="${session.user.id != null && session['user'].id != 'manager'}" href="/mypage"><i
+								class='fa fa-user-o' aria-hidden='true'></i></a>
+					</li>
+					<li class="side">
+						<a th:if="${session.user.id != null && session['user'].id != 'manager'}" href="/cartList"><i
+								class='fa fa-shopping-cart' aria-hidden='true'></i></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</header>
+
+</html>

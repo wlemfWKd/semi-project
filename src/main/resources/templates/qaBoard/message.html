@@ -1,0 +1,22 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>메시지 창</title>
+</head>
+<body>
+
+<script th:inline="javascript">
+    // Thymeleaf에서 받아온 동적인 값
+    var message = /*[[${message}]]*/ '';
+    var searchUrl = /*[[${searchUrl}]]*/ '';
+
+    alert(message);
+
+    // location.replace()를 사용하여 페이지 리디렉션
+    if (searchUrl) {
+        location.replace(searchUrl);
+    }
+</script>
+</body>
+</html>

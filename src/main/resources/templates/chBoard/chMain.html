@@ -1,0 +1,72 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<meta charset="UTF-8">
+	<title>chMain</title>
+
+	<style>
+		.container {
+			padding: 67px 65px;
+		}
+
+		form {
+			background-color: #fff;
+			padding: 30px 20px 30px 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			width: 70%;
+			margin: 30px auto 60px;
+			text-align: center;
+		}
+
+		p {
+			font-size: 18px;
+		}
+
+		span {
+			font-weight: 900;
+			text-decoration: underline;
+			color: #d55e2d;
+		}
+
+		.click {
+			text-decoration: underline;
+		}
+
+		.click:hover {
+			color: #d55e2d;
+		}
+	</style>
+</head>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<form>
+			<h1>취소/반품 신청 페이지입니다</h1>
+			<br /><br />
+			<p>신청하기 전에 <span>제품 구매 약관</span>을 다시 한번 읽어보시고 신청해주세요.</p>
+			<p>부적합한 사유로 판단될 때에는 고객님의 <span>요청이 거절</span> 될 수 있습니다.</p>
+			<br /><br />
+			<p><span>[ 주문 취소는 배송시작 전까지만 가능합니다. ]</span></p>
+			<br /><br />
+
+			<!-- 구매 내역이 있는 회원만 접근 가능하도록 설정 -->
+			<a class="click" th:href="@{/chBoardWrite}">취소/반품 신청하기</a>
+			<br /><br />
+			<!-- 나의 교환/반품 내역 리스트 볼 수 있게-->
+			<a class="click" th:href="@{/myChBoardList}">나의 취소/반품 내역 확인하기</a>
+
+		</form>
+		<footer th:replace="footer::footer"></footer>
+	</div>
+
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

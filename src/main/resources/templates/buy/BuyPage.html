@@ -1,0 +1,30 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>buyPage.html</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+</head>
+
+<body th:align="center">
+	<header th:replace="header::header"></header>
+
+	<h1>제품 구매</h1>
+
+	<form action="/pay" method="get" encType="multipart/form-data">
+		<input type="hidden" name="buyId" th:value="${session['user'].id }" />
+		<h3>상품 이름 : <span th:text="${product.productName}" /></h3>
+		<h3>상품 가격 : <span th:text="|${product.productPrice*product.productCount} 원|" /></h3>
+		<h3>상품 갯수: <span th:text="${product.productCount}" /></h3>
+
+		<input type="submit" value="결제하기" />
+	</form>
+
+
+	<footer th:replace="footer::footer"></footer>
+</body>
+
+</html>

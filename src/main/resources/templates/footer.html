@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<footer th:fragment="footer">
+	<!-- footer Area Start -->
+	<div id="footer">
+
+		<div class="f_wrap">
+			<div class="tail_con">
+
+				<div class="copyright">
+
+					<div class="f_info">
+						<div class="tel"><i class="fa fa-phone"></i>1588-5890</div>
+						<div class="time">수업시간 : 09:00 - 18:00<br /> 점심시간 11:50 - 13:00</div>
+
+						<div class="qna">
+							토, 일, 공휴일은 휴무입니다.<br />
+							문의사항은 Q&amp;A게시판을 이용해주세요.
+							<a href="/qaBoardList">Q&amp;A게시판</a>
+						</div>
+					</div>
+					<div class="f_title">COMPANY</div>
+					Company Name : B1L3<br />
+					Business License No : 123-45-67890 [사업자정보확인]<br />
+					E-Commerce Registration : 2020-서울송파-1274 <br />
+					Address : 서울특별시 강남구 현익빌딩 3층, 4층<br />
+					Tel. 1599-5890<br />
+					CEO : BKL3<br />
+					호스팅 업체 : KOREAIT<br />
+					Copyright © KOREAIT All Rights Reserved.
+				</div>
+			</div>
+		</div>
+		<div class="kakaomap">
+			<div class="map" id="map" style="width: 200px; height: 200px;"></div>
+		</div>
+
+		<!-- f-menu -->
+		<div class="f-menu">
+			<div class="tail_con">
+				<ul>
+					<li><a href="/introduce">회사소개</a></li>
+					<li><a href="/agreement">이용약관</a></li>
+					<li><a href="/privacy">개인정보처리방침</a></li>
+					<li><a href="/qaBoardList">고객센터</a></li>
+				</ul>
+
+				<div class="sns">
+					<div class="bsns_wrap">
+						<img src="https://themedicube.co.kr/web/upload/images/bsns_11.png" alt="" />
+						<img src="https://themedicube.co.kr/web/upload/images/bsns_12.png" alt="" />
+						<img src="https://themedicube.co.kr/web/upload/images/bsns_13.png" alt="" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> <!-- footer Area End -->
+	<!-- 카카오 맵 -->
+	<!-- 카카오 맵 API 로드 -->
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=34f204087c3999e3bd4d887243cb9571"></script>
+
+	<style>
+		.kakaomap {
+			display: flex;
+			align-items: center;
+		}
+
+		.map {
+			margin-left: 70%;
+			margin-top: -15%;
+			width: 200px;
+			height: 200px;
+		}
+	</style>
+</footer>
+
+</html>

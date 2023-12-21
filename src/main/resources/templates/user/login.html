@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<style>
+		h1 {
+			text-align: center;
+			color: #d55e2d;
+		}
+
+		.container {
+			padding: 67px 65px;
+		}
+
+		form {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			margin: auto;
+		}
+
+		table {
+			margin: auto;
+		}
+
+		td {
+			padding: 10px;
+			text-align: center;
+		}
+
+		input[type="text"],
+		input[type="password"] {
+			width: 100%;
+			padding: 8px;
+			box-sizing: border-box;
+			margin-bottom: 10px;
+			border: 1px solid #d55e2d;
+		}
+
+		input[type="submit"] {
+			background-color: #d55e2d;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #b84827;
+		}
+
+		.ka {
+			list-style-type: none;
+			display: inline-block;
+			margin-top: 10px;
+		}
+
+		.click {
+			text-decoration: none;
+			color: #d55e2d;
+			display: inline-block;
+			margin-top: 10px;
+			margin-right: 10px;
+			margin-bottom: 20px;
+		}
+
+		.click:hover {
+			color: #b84827;
+		}
+	</style>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<!-- 카카오 스크립트 -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script src="/js/user/login.js"></script>
+	<!-- 카카오 맵 -->
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=34f204087c3999e3bd4d887243cb9571"></script>
+</head>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<form action="/login" method="post">
+			<h1>로그인</h1>
+			<table>
+				<tr>
+					<td>아이디:</td>
+					<td><input type="text" name="id" size="20" /></td>
+				</tr>
+				<tr>
+					<td>비밀번호:</td>
+					<td><input type="password" name="password" size="20" /></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="로그인" /></td>
+				</tr>
+			</table>
+		</form>
+		<div th:align="center">
+			<li class="ka" onclick="kakaoLogin();">
+				<a class="click" href="javascript:void(0)">
+					<span>카카오 로그인</span>
+				</a>
+			</li>
+			<a class="click" href="/idsearch">아이디 찾기</a>
+			<a class="click" href="/pwsearch">비밀번호 찾기</a>
+		</div>
+		<footer th:replace="footer::footer"></footer>
+	</div>
+
+	<!-- jQuery Insert -->
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+</html>

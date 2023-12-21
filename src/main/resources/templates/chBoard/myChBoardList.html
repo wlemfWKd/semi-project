@@ -1,0 +1,152 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>myChBoardList.html</title>
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<style>
+		body {
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+		}
+
+		h1 {
+			text-align: center;
+			color: #d55e2d;
+		}
+
+		.container {
+			padding: 67px 65px;
+		}
+
+
+		form {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			margin: 30px auto 30px;
+			text-align: center;
+		}
+
+		table {
+			margin: auto;
+			width: 700px;
+			border-collapse: collapse;
+			border: 1px solid #d55e2d;
+			margin-bottom: 30px;
+		}
+
+		th,
+		td {
+			border: 1px solid #d55e2d;
+			padding: 10px;
+			text-align: center;
+		}
+
+		th {
+			background-color: #d55e2d;
+			color: #fff;
+		}
+
+		a {
+			color: #d55e2d;
+		}
+
+		a:hover {
+			color: #b84827;
+		}
+
+		.pagination {
+			text-align: center;
+			margin-top: 20px;
+		}
+
+		.pagination a,
+		.pagination strong {
+			display: inline-block;
+			padding: 8px 12px;
+			margin: 0 4px;
+			border: 1px solid #ddd;
+			text-decoration: none;
+			color: #333;
+			border-radius: 4px;
+		}
+
+		.pagination strong {
+			background-color: #d55e2d;
+			color: #fff;
+		}
+
+		.prev {
+			margin: 10px auto 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<header th:replace="header::header"></header>
+	<div class="container">
+		<form>
+			<h1>나의 교환/반품 내역</h1>
+			<table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0" th:width="700">
+				<tr>
+					<th width="50">번호</th>
+					<th width="100">신청유형</th>
+					<th width="200">제목</th>
+					<th width="100">작성자</th>
+					<th width="100">작성일</th>
+					<th width="100">진행상황</th>
+				</tr>
+				<tr th:each="board, state : ${boardList }">
+					<td th:text="${state.count}"></td>
+					<td th:text="${board.type}"></td>
+					<td><a th:href="@{/chBoardView(seq=${board.seq})}" th:text="${board.title}"></a></td>
+					<td th:text="${board.writer}"></td>
+					<td th:text="${#dates.format(board.createDate, 'yyyy-MM-dd')}">
+					<td th:text="${board.ready}"></td>
+				</tr>
+			</table>
+		</form>
+
+		<div th:if="${!boardList.empty}">
+			<div class="pagination">
+				<th:block th:if="${startPage > 1}">
+					<a
+						th:href="@{/myChBoardList(page=${startPage-2}, searchKeyword=${param.searchKeyword}, select=${param.select})}">&lt;
+						이전</a>
+				</th:block>
+
+				<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+					<a th:if="${page != nowPage}"
+						th:href="@{/myChBoardList(page=${page-1}, searchKeyword=${param.searchKeyword}, select=${param.select})}"
+						th:text="${page}"></a>
+					<strong th:if="${page == nowPage}" th:text="${page}"></strong>
+				</th:block>
+
+				<th:block th:if="${endPage < boardList.totalPages}">
+					<a th:if="${boardList.totalPages - endPage > 0}"
+						th:href="@{/myChBoardList(page=${endPage}, searchKeyword=${param.searchKeyword}, select=${param.select})}">다음
+						&gt;</a>
+				</th:block>
+			</div>
+		</div>
+
+		<div th:align="center" class="prev">
+			<a th:href="@{/chMain}">이전 페이지</a>
+		</div>
+		<footer th:replace="footer::footer"></footer>
+	</div>
+
+	<!-- jQuery Insert -->
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
+</body>
+
+
+
+</html>
