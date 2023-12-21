@@ -17,7 +17,7 @@ public interface ReviewRepository extends JpaRepository<ReviewDTO, Long> {
 
 	ReviewDTO findBySeq(Long seq);
 
-	List<ReviewDTO> findTop5ByReviewImageIsNotOrderByRatingDesc(String non);
+	 List<ReviewDTO> findTop5ByReviewImageIsNotOrderByReviewDateDescRatingDesc(String non);
 
 	Page<ReviewDTO> findByReviewContentContaining(String searchKeyword, Pageable pageable);
 
