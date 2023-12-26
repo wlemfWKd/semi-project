@@ -168,6 +168,25 @@ public class ChController {
     	
     }
     
+    
+	/*
+	 * @GetMapping("/chBoardView") public String boardView(@ModelAttribute("user")
+	 * MemberDTO user, Model model, Long seq, ChBoard board) {
+	 * 
+	 * Optional<ChBoard> chBoardOptional = chBoardService.getBoard(board); if
+	 * (chBoardOptional.isEmpty()) { model.addAttribute("message", "이미 삭제된 글입니다.");
+	 * model.addAttribute("searchUrl", "chMain"); return "/qaBoard/message"; } else
+	 * { ChBoard chboard = chBoardService.chBoardView(seq);
+	 * 
+	 * if(chboard.getFilepath().endsWith("_")) { String a = "no";
+	 * model.addAttribute("no",a); model.addAttribute("board",
+	 * chBoardService.chBoardView(seq)); return "/chBoard/chBoardView"; }else {
+	 * String a = "yes"; model.addAttribute("no",a); model.addAttribute("board",
+	 * chBoardService.chBoardView(seq)); return "/chBoard/chBoardView"; }
+	 * 
+	 * }
+	 */
+    
     @GetMapping("/deleteChBoard")
     public String chboardDelete(Long seq, Model model) {
     	chBoardService.chboardDelete(seq);

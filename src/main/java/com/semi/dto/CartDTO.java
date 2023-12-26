@@ -25,6 +25,9 @@ public class CartDTO {
 	@Id
 	private String userId;
 	
+	@Id
+	private int seq;
+	
 	private String cartName;
 	private int cartCount;
 	private int cartPrice;

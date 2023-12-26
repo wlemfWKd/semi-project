@@ -161,7 +161,7 @@
 								<div class="img-box"><img th:src="@{|/files/${product.productImage}|}"
 										th:alt="${product.productName}"></div>
 								<h3 th:text="${product.productName}"></h3>
-								<p th:text="'₩' + ${product.productPrice}"></p>
+								<p th:text="${#numbers.formatInteger(product.productPrice, 3, 'COMMA') + '원'}"></p>
 								<a th:href="@{'/productArticle?seq=' + ${product.seq}}" class="btn">자세히 보기</a>
 							</div>
 						</div>
@@ -169,8 +169,6 @@
 
 				</div><!--p-container-->
 			</div><!--product-select-->
-
-
 
 		</div><!--contents-->
 	</div> <!-- About Area End -->

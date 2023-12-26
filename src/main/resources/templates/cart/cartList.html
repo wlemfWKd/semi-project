@@ -136,8 +136,9 @@
 							<input type="hidden" th:id="price + ${items.cartCode}" th:value="${items.cartPrice}">
 						</div>
 						<td>
-							<img th:src="@{|/files/${items.cartImage}|}" alt="업로드중입니다."
-								style="width: 150px; height: 150px;">
+							<a th:href="@{/productArticle(seq=${items.seq})}">
+								<img th:src="@{|/files/${items.cartImage}|}" alt="업로드중입니다."
+								style="width: 150px; height: 150px;"></a>
 						</td>
 						<td><a class="delete" th:href="@{/deleteCart(cartCode=${items.cartCode})}">삭제</a></td>
 					</tr>

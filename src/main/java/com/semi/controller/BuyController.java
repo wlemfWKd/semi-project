@@ -169,7 +169,8 @@ public class BuyController {
 	}
 
 	@GetMapping("/complete")
-	public String complete(BuyDTO dto, Model model, ProductDTO prdto) {
+	public String complete(BuyDTO dto, Model model, ProductDTO prdto, @ModelAttribute("user") MemberDTO user) {
+		dto.setId(user.getId());
 		System.out.println(dto.getProductCode());
 		System.out.println(dto.getId());
 		model.addAttribute("complete", dto);

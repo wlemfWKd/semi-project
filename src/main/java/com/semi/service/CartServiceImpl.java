@@ -41,6 +41,7 @@ public class CartServiceImpl implements CartService {
 			cart.setCartCount(cart.getCartCount() + product.getProductCount());
 		} else {
 			cart = new CartDTO();
+			cart.setSeq(product.getSeq());
 			cart.setCartCode(product.getProductCode());
 			cart.setCartName(product.getProductName());
 			cart.setCartPrice(product.getProductPrice());

@@ -79,13 +79,13 @@
 		a.review-link,
 		input[type="button"] {
 			display: inline-block;
-			padding: 10px 20px;
+			padding: 8px 12px;
 			background-color: #d55e2d;
 			color: #fff;
 			text-decoration: none;
 			border-radius: 4px;
-			margin-left: 20px;
 			border: none;
+			font-size: 13px;
 		}
 
 		a.review-link:hover,
@@ -132,7 +132,6 @@
 			<h1 class="title">꼼꼼 리뷰</h1>
 			<form th:align="right">
 				<a class="review-link" href="insertReview">리뷰 등록</a>
-				<a class="review-link" href="/getReviewList">리뷰 전체 보기</a>
 			</form>
 
 			<table th:each="review, state : ${ReviewList}" align="center">
@@ -211,6 +210,7 @@
 			</select>
 			<input type="text" name="searchKeyword">
 			<button type="submit">검색</button>
+			<a class="review-link" href="/getReviewList">전체 보기</a>
 		</form>
 		<footer th:replace="footer::footer"></footer>
 	</div>

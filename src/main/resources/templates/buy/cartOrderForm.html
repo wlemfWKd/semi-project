@@ -97,15 +97,19 @@
 				<tr>
 					<td th:text="휴대폰번호"></td>
 					<td>
-						<input type="text" id="phone1" name="phone1" th:value="${#strings.isEmpty(num1)? '': num1}" size="3" maxlength="3" />-
-						<input type="text" id="phone2" name="phone2" th:value="${#strings.isEmpty(num2)? '': num2}" size="4" maxlength="4" />-
-						<input type="text" id="phone3" name="phone2" th:value="${#strings.isEmpty(num3)? '': num3}" size="4" maxlength="4" />
+						<input type="text" id="phone1" name="phone1" th:value="${#strings.isEmpty(num1)? '': num1}"
+							size="3" maxlength="3" />-
+						<input type="text" id="phone2" name="phone2" th:value="${#strings.isEmpty(num2)? '': num2}"
+							size="4" maxlength="4" />-
+						<input type="text" id="phone3" name="phone2" th:value="${#strings.isEmpty(num3)? '': num3}"
+							size="4" maxlength="4" />
 					</td>
 				</tr>
 				<tr>
 					<td th:text="주소"></td>
 					<td>
-						<input type="text" id="addr1" name="addr1" th:value="${#strings.isEmpty(addr1)? '': addr1}" readonly />
+						<input type="text" id="addr1" name="addr1" th:value="${#strings.isEmpty(addr1)? '': addr1}"
+							readonly />
 						<input type="button" class="btn btn-info" value="우편번호 찾기" onclick="doumPost()" />
 					</td>
 				</tr>
@@ -113,8 +117,10 @@
 					<td>
 					</td>
 					<td>
-						<input type="text" id="addr2" name="addr2" th:value="${#strings.isEmpty(addr2)? '': addr2}" placeholder="주소" readonly />
-						<input type="text" id="addr3" name="addr3" th:value="${#strings.isEmpty(addr3)? '': addr3}" placeholder="상세주소" /> <br />
+						<input type="text" id="addr2" name="addr2" th:value="${#strings.isEmpty(addr2)? '': addr2}"
+							placeholder="주소" readonly />
+						<input type="text" id="addr3" name="addr3" th:value="${#strings.isEmpty(addr3)? '': addr3}"
+							placeholder="상세주소" /> <br />
 						<br />
 					</td>
 				</tr>
@@ -134,6 +140,9 @@
 		</form>
 		<footer th:replace="footer::footer"></footer>
 	</div>
+	<!-- jQuery Insert -->
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
 </body>
 
 </html>

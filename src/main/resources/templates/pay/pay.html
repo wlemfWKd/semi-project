@@ -106,11 +106,12 @@
 					<td id="phone1" name="phone1" th:text="${phone}"></td>
 					<td id="addr1" name="addr1" th:text="${addr}"></td>
 					<td id="productName1" name="productName1" th:text="${product.productName}"
-						th:value="${product.productName}">
+						th:value="${product.productName}"></td>
 					<td id="productCount1" name="productCount1" th:text="${product.productCount}"
-						th:value="${product.productCount}">
-					<td id="productPrice1" name="productPrice1" th:text="${#numbers.formatInteger(product.productPrice, 3, 'COMMA') + '원'}"
-						th:value="${product.productPrice}">
+						th:value="${product.productCount}"></td>
+					<td id="productPrice1" name="productPrice1"
+						th:text="${#numbers.formatInteger(product.productPrice, 3, 'COMMA') + '원'}"
+						th:value="${product.productPrice}"></td>
 				</tr>
 				<input type="hidden" id="name" name="name" />
 				<input type="hidden" id="phone" name="phone" />

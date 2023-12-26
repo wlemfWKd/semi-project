@@ -2,145 +2,175 @@
 <html>
 
 <head>
-<link rel="stylesheet" href="../css/serve-footer.css">
-<link rel="stylesheet" href="../css/serve-header.css">
-<!-- icon -->
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-<style>
-	body {
-		font-family: 'Arial', sans-serif;
-		background-color: #f4f4f4;
-		margin: 0;
-		padding: 0;
-		display: grid;
-		align-items: center;
-		justify-content: center;
-		height: 100vh;
-	}
+	<link rel="stylesheet" href="../css/serve-footer.css">
+	<link rel="stylesheet" href="../css/serve-header.css">
+	<!-- icon -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<style>
+		h1 {
+			text-align: center;
+			color: #d55e2d;
+		}
 
-	h1 {
-		text-align: center;
-		color: #d55e2d;
-	}
+		.container {
+			padding: 67px 65px;
+		}
 
-	form {
-		background-color: #fff;
-		padding: 20px;
-		border-radius: 8px;
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-		width: 1200px;
-		/* 수정된 부분 */
-	}
+		form {
+			background-color: #fff;
+			padding: 30px 20px 30px 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			width: 70%;
+			margin: 30px auto 60px;
+			text-align: center;
+		}
 
-	table {
-		margin: auto;
-	}
+		table {
+			margin: auto;
+		}
 
-	td {
-		padding: 10px;
-		text-align: left;
-		/* 수정된 부분 */
-	}
+		td {
+			padding: 10px;
+			text-align: justify;
+			font-size: 20px;
+		}
 
-	input[type="text"],
-	input[type="password"] {
-		width: 100%;
-		padding: 8px;
-		box-sizing: border-box;
-		margin-bottom: 10px;
-		border: 1px solid #d55e2d;
-	}
+		input[type="text"],
+		input[type="password"] {
+			width: 100%;
+			padding: 8px;
+			box-sizing: border-box;
+			margin-bottom: 10px;
+			border: 1px solid #d55e2d;
+		}
 
-	input[type="submit"] {
-		background-color: #d55e2d;
-		color: #fff;
-		padding: 10px 20px;
-		border: none;
-		border-radius: 4px;
-		cursor: pointer;
-		width: 100%;
-		/* 수정된 부분 */
-	}
+		#phone1,
+		#phone2,
+		#phone3 {
+			width: 110px !important;
+		}
 
-	input[type="submit"]:hover {
-		background-color: #b84827;
-	}
-</style>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-	crossorigin="anonymous"></script>
-<script src="/js/user/kakaojoinform.js"></script>
+		#email1 {
+			width: 250px !important;
+		}
+
+		select {
+			height: 34px;
+			border-color: #d55e2d;
+		}
+
+		input[type="submit"] {
+			background-color: #d55e2d;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #b84827;
+		}
+
+		input[type="button"],
+		button {
+			background-color: #d55e2d;
+			color: #fff;
+			padding: 9px 10px;
+			border-radius: 4px;
+			cursor: pointer;
+			border: none;
+		}
+
+		button {
+			margin-bottom: 11px;
+		}
+
+		#addr1 {
+			width: 150px;
+		}
+	</style>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.js"
+		integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+	<script src="/js/user/kakaojoinform.js"></script>
 </head>
+
 <body>
 	<header th:replace="header::header"></header>
-	<h1>로그인</h1>
-	<form action="/joinResult" method="post" name="register" align="center">
-		<input type="hidden" name="email" id="email" />
-		<input type="hidden" name="phone" id="phone" />
-		<input type="hidden" name="addr" id="addr" />
-		<table>
-			<tr>
-				<td th:text="아이디"></td>
-				<td><input type="text" id="id" name="id" /></td>
-				<td><button type="button" onclick="idcheck()">중복 체크</button></td>
-			</tr>
-			<tr>
-				<td th:text="비밀번호"></td>
-				<td><input type="password" name="password" /></td>
-			</tr>
-			<tr>
-				<td>비밀번호 확인</td>
-				<td><input type="password" name="passwordc" size="30" /></td>
-			</tr>
-			<tr>
-				<td th:text="이름"></td>
-				<td><input type="text" name="name" size="10" /></td>
-			</tr>
-			<tr>
-				<td th:text="이메일"></td>
-				<td><input type="text" id="email1" size="20" />
-					<select id="email2" onchange="checkCustomEmail()">
-						<option value="">선택하세요</option>
-						<option value="@naver.com">네이버</option>
-						<option value="@gmail.com">G메일</option>
-						<option value="@daum.net">다음</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td th:text="휴대폰번호"></td>
-				<td>
-					<input type="text" id="phone1" size="3" maxlength="3" pattern="[0-9]{3}" />-
-					<input type="text" id="phone2" size="4" maxlength="4" pattern="[0-9]{4}" />-
-					<input type="text" id="phone3" size="4" maxlength="4" pattern="[0-9]{4}" />
-				</td>
+	<div class="container">
+		<h1>로그인</h1>
+		<form action="/joinResult" method="post" name="register" align="center">
+			<input type="hidden" name="email" id="email" />
+			<input type="hidden" name="phone" id="phone" />
+			<input type="hidden" name="addr" id="addr" />
+			<table>
+				<tr>
+					<td th:text="아이디"></td>
+					<td><input type="text" id="id" name="id" /></td>
+					<td><button type="button" onclick="idcheck()">중복 체크</button></td>
+				</tr>
+				<tr>
+					<td th:text="비밀번호"></td>
+					<td><input type="password" name="password" /></td>
+				</tr>
+				<tr>
+					<td>비밀번호 확인</td>
+					<td><input type="password" name="passwordc" size="30" /></td>
+				</tr>
+				<tr>
+					<td th:text="이름"></td>
+					<td><input type="text" name="name" size="10" /></td>
+				</tr>
+				<tr>
+					<td th:text="이메일"></td>
+					<td><input type="text" id="email1" size="20" />
+						<select id="email2" onchange="checkCustomEmail()">
+							<option value="">선택하세요</option>
+							<option value="@naver.com">네이버</option>
+							<option value="@gmail.com">G메일</option>
+							<option value="@daum.net">다음</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td th:text="휴대폰번호"></td>
+					<td>
+						<input type="text" id="phone1" size="3" maxlength="3" pattern="[0-9]{3}" />-
+						<input type="text" id="phone2" size="4" maxlength="4" pattern="[0-9]{4}" />-
+						<input type="text" id="phone3" size="4" maxlength="4" pattern="[0-9]{4}" />
+					</td>
 
-			</tr>
-			<tr>
-				<td th:text="주소"></td>
-				<td>
-					<input type="text" id="addr1" placeholder="우편번호" readonly />
-					<input type="button" class="btn btn-info" value="우편번호 찾기" onclick="doumPost()" /><br />
-				</td>
-			</tr>
-			<tr>
-				<td>
-				</td>
-				<td>
-					<input type="text" id="addr2" placeholder="주소" readonly />
-					<input type="text" id="addr3" placeholder="상세주소" /> <br /> <br />
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="hidden" id="kakao" name="kakao" th:value="${kakao}" />
-					<input type="button" onclick="push()" value="회원가입" />
-				</td>
-			</tr>
-		</table>
-
-	</form>
-	<footer th:replace="footer::footer"></footer>
+				</tr>
+				<tr>
+					<td th:text="주소"></td>
+					<td>
+						<input type="text" id="addr1" placeholder="우편번호" readonly />
+						<input type="button" class="btn btn-info" value="우편번호 찾기" onclick="doumPost()" /><br />
+					</td>
+				</tr>
+				<tr>
+					<td>
+					</td>
+					<td>
+						<input type="text" id="addr2" placeholder="주소" readonly />
+						<input type="text" id="addr3" placeholder="상세주소" /> <br /> <br />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="hidden" id="kakao" name="kakao" th:value="${kakao}" />
+					</td>
+				</tr>
+			</table>
+			<input type="button" onclick="push()" value="회원가입" />
+		</form>
+		<footer th:replace="footer::footer"></footer>
+	</div>
+	<!-- jQuery Insert -->
+	<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+	<script src='../js/main.js'></script>
 </body>
 
 </html>

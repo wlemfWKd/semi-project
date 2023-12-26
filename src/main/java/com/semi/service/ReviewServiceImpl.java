@@ -96,16 +96,17 @@ public class ReviewServiceImpl implements ReviewService {
 		findReview.setProduct(mul.getParameter("product"));
 		int findIndex = findReview.getReviewImage().lastIndexOf("-");
 		String saveFileName ="";
-		if(findReview.getReviewImage().equals("non")) {
-			
-		}else {
-			
-			saveFileName = findReview.getReviewImage().substring(findIndex);
-		}
 		
 		MultipartFile file = mul.getFile("reviewImage");
+		
 		System.out.println("");
 		if (!saveFileName.equals(file.getOriginalFilename())) {
+			if(findReview.getReviewImage().equals("non")) {
+				
+			}else {
+				
+				saveFileName = findReview.getReviewImage().substring(findIndex);
+			}
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss-");
 			Calendar calendal = Calendar.getInstance();
 			String sysFileName = sdf.format(calendal.getTime());

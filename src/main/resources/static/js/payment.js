@@ -33,6 +33,7 @@ const kakaoPay = async () => {
    }, (rsp) => {
       if(rsp.success){
          alert("결제 완료: ", rsp);
+         Pprice = Pprice.replace(/,/g, '').replace('원', '');
 		    document.getElementById("name").value = Mname;
 		   	document.getElementById("phone").value = Mphone;
 		   	document.getElementById("addr").value = Maddr;
